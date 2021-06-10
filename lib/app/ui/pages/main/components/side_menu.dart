@@ -1,6 +1,7 @@
+import 'package:cotizaweb/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class SideMenu extends GetView {
   const SideMenu({
@@ -23,9 +24,11 @@ class SideMenu extends GetView {
               press: () {},
             ),
             DrawerListTile(
-              title: "Transaction",
+              title: "Banners",
               svgSrc: "assets/icons/menu_tran.svg",
-              press: () {},
+              press: () {
+                Get.toNamed(Routes.BANNERS);
+              },
             ),
             DrawerListTile(
               title: "Task",

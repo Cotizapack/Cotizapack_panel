@@ -127,26 +127,38 @@ class LoginForm extends StatelessWidget {
                     color: Colors.white, fontSize: fontSizeTextFormField)),
             SizedBox(height: heightSize * spaceBetweenFieldAndButton),
             FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                padding: EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15),
-                color: Colors.white,
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    Get.toNamed(Routes.HOME);
-                  }
-                },
-                child: Text('Iniciar',
-                    style: TextStyle(
-                        fontSize: widthSize * fontSizeButton,
-                        fontFamily: 'Poppins',
-                        color: Color.fromRGBO(41, 187, 255, 1)))),
-            SizedBox(height: heightSize * 0.01),
-            Text('olvidé mi contraseña',
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              padding: EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15),
+              color: Colors.white,
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  Get.toNamed(Routes.HOME);
+                }
+              },
+              child: Text(
+                'Iniciar',
                 style: TextStyle(
-                    fontSize: widthSize * fontSizeForgotPassword,
-                    fontFamily: 'Poppins',
-                    color: Colors.white))
+                  fontSize: widthSize * fontSizeButton,
+                  fontFamily: 'Poppins',
+                  color: Color.fromRGBO(
+                    41,
+                    187,
+                    255,
+                    1,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: heightSize * 0.01),
+            Text(
+              'olvidé mi contraseña',
+              style: TextStyle(
+                fontSize: widthSize * fontSizeForgotPassword,
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+            )
           ],
         ),
       ),
