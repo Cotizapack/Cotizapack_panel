@@ -1,20 +1,17 @@
-
+import 'package:cotizaweb/app/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controllers/quotations_controller.dart';
+import 'desktop_mode.dart';
+import 'mobile_mode.dart';
 
-
-class QuotationsPage extends GetView<QuotationsController> {
+class QuotationsPage extends GetResponsiveView<LoginController> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('QuotationsPage'),
-      ),
-      body: SafeArea(
-        child: Text('QuotationsController'),
-      ),
-    );
+  Widget? phone() {
+    return mobileMode(screen);
+  }
+
+  @override
+  Widget desktop() {
+    return desktopMode(screen);
   }
 }
-  

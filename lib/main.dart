@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Cotizapack Panel',
       darkTheme: appThemelight,
       theme: appThemedark,
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.HOME,
       getPages: AppPages.pages,
     );
   }
