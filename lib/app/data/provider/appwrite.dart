@@ -10,8 +10,8 @@ class AppwriteSettings {
     Client client = Client();
     client
         .setEndpoint('$endPoint') // Your Appwrite Endpoint
-        .setProject('$projectID') // Your project ID
-        .setSelfSigned(); // Remove in production;
+        .setProject('$projectID'); // Your project ID
+
     return client;
   }
 }

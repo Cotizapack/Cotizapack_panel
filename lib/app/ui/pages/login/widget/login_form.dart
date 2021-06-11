@@ -1,13 +1,10 @@
-import 'package:cotizaweb/app/routes/app_pages.dart';
+import 'package:cotizaweb/app/controllers/login_controller.dart';
+import 'package:cotizaweb/app/data/common/validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+class LoginForm extends GetView<LoginController> {
   final paddingTopForm,
       fontSizeTextField,
       fontSizeTextFormField,
@@ -40,7 +37,7 @@ class LoginForm extends StatelessWidget {
     final double heightSize = MediaQuery.of(context).size.height;
 
     return Form(
-      key: _formKey,
+      key: controller.formKey,
       child: Padding(
         padding: EdgeInsets.only(
             left: widthSize * 0.05,
@@ -56,36 +53,39 @@ class LoginForm extends StatelessWidget {
                         fontFamily: 'Poppins',
                         color: Colors.white))),
             TextFormField(
-                controller: _usernameController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Ingrese su correo electrónico';
-                  }
-                },
-                cursorColor: Colors.white,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Colors.white,
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2)),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2)),
-                  labelStyle: TextStyle(color: Colors.white),
-                  errorStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: widthSize * errorFormMessage),
-                  prefixIcon: Icon(
-                    Icons.person,
-                    size: widthSize * iconFormSize,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Ingrese su correo electrónico';
+                }
+              },
+              onChanged: (value) => controller.user.email = value,
+              cursorColor: Colors.white,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: Colors.white),
+                fillColor: Colors.white,
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red, width: 2)),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 2)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 2)),
+                labelStyle: TextStyle(color: Colors.white),
+                errorStyle: TextStyle(
                     color: Colors.white,
-                  ),
+                    fontSize: widthSize * errorFormMessage),
+                prefixIcon: Icon(
+                  Icons.person,
+                  size: widthSize * iconFormSize,
+                  color: Colors.white,
                 ),
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: Colors.white, fontSize: fontSizeTextFormField)),
+              ),
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: fontSizeTextFormField,
+              ),
+            ),
             SizedBox(height: heightSize * spaceBetweenFields),
             Align(
                 alignment: Alignment.centerLeft,
@@ -95,12 +95,8 @@ class LoginForm extends StatelessWidget {
                         fontFamily: 'Poppins',
                         color: Colors.white))),
             TextFormField(
-                controller: _passwordController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Ingrese su contraseña!';
-                  }
-                },
+                validator: Validators.passwordValidator,
+                onChanged: (value) => controller.user.password = value,
                 cursorColor: Colors.white,
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -126,14 +122,20 @@ class LoginForm extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.white, fontSize: fontSizeTextFormField)),
             SizedBox(height: heightSize * spaceBetweenFieldAndButton),
-            FlatButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              padding: EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15),
-              color: Colors.white,
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15)),
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+              ),
               onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  Get.toNamed(Routes.HOME);
+                if (controller.formKey.currentState!.validate()) {
+                  controller.signIn();
                 }
               },
               child: Text(
@@ -158,7 +160,12 @@ class LoginForm extends StatelessWidget {
                 fontFamily: 'Poppins',
                 color: Colors.white,
               ),
-            )
+            ),
+            // controller.obx(
+            //   (data) => Text('data'),
+            //   onError: (error) => Text('$error'),
+            //   onEmpty: Text('non hay datos'),
+            // ),
           ],
         ),
       ),

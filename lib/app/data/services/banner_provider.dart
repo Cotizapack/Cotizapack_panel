@@ -1,20 +1,24 @@
-import 'package:appwrite/appwrite.dart' as ap;
+import 'dart:convert';
+
+import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/models/banner_model.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
-import 'package:get/get.dart';
 
-class BannerServices extends GetxService {
-  late final ap.Database database;
+class BannerServices {
+  late final Database database;
 
   Future<BannerModel?> getallMyBanner() async {
-    database = ap.Database(AppwriteSettings.initAppwrite());
+    database = Database(AppwriteSettings.initAppwrite());
     try {
-      ap.Response result =
+      Response result =
           await database.listDocuments(collectionId: Collections.BANNERS);
-      var banner = BannerModel.fromJson(result.data["documents"]);
-      return banner;
+      // var data = jsonDecode(result.data.toString())['documends'];
+      print(result.data.toString());
+      // var banner = BannerModel.fromMap();
+      // return banner;
     } catch (e) {
+      print('Error: $e');
       return null;
     }
   }

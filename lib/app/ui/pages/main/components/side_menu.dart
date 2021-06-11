@@ -31,9 +31,11 @@ class SideMenu extends GetView {
               },
             ),
             DrawerListTile(
-              title: "Task",
+              title: "Cotizaciones",
               svgSrc: "assets/icons/menu_task.svg",
-              press: () {},
+              press: () {
+                Get.toNamed(Routes.QUOTATIONS);
+              },
             ),
             DrawerListTile(
               title: "Documents",
