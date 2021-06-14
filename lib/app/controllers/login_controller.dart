@@ -42,7 +42,7 @@ class LoginController extends GetxController with StateMixin {
               title: '¡Bienvenid@!',
               message: 'estamos cargando tus datos',
               color: Colors.green);
-          Timer(Duration(seconds: 2), () => Get.offAllNamed(Routes.HOME));
+          Timer(Duration(seconds: 2), () => Get.offAllNamed(Routes.INITIAL));
           return;
         }
         if (value.statusCode! >= 400 && value.statusCode! <= 499) {

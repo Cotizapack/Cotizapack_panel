@@ -1,7 +1,5 @@
-
 import 'package:get/get.dart';
 import '../controllers/quotations_controller.dart';
-
 
 class QuotationsBinding implements Bindings {
   @override

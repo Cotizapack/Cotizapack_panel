@@ -23,8 +23,8 @@ class AccountRepository {
       Response res = await account.updatePassword(
           oldPassword: oldPassword, password: newPassword);
       return MyAccount.fromJson(res.data);
-    } catch (e) {
-      print('Error getAccount: $e');
+    } on AppwriteException catch (e) {
+      print('Error getAccount: ${e.message}');
       return null;
     }
   }
@@ -64,7 +64,8 @@ class AccountRepository {
         tokenResponse = TokenReset.fromJson(result.data);
       }
       return tokenResponse;
-    } catch (e) {
+    } on AppwriteException catch (e) {
+      print('Error CompletePassword: ${e.message}');
       return TokenReset.fromJson({});
     }
   }

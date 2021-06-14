@@ -1,11 +1,13 @@
 import 'package:cotizaweb/app/controllers/MenuController.dart';
-import 'package:cotizaweb/app/ui/pages/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'components/side_menu.dart';
 
 class MainScreen extends GetResponsiveView<MenuController> {
+  final Widget screenPrincipal;
+  MainScreen({required this.screenPrincipal});
+
   @override
   Widget? desktop() {
     return Scaffold(
@@ -26,7 +28,7 @@ class MainScreen extends GetResponsiveView<MenuController> {
               // It takes 5/6 part of the screen
               flex: 5,
               // child: Text('hola'),
-              child: DashboardScreen(),
+              child: screenPrincipal,
             ),
           ],
         ),
@@ -44,9 +46,7 @@ class MainScreen extends GetResponsiveView<MenuController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              // It takes 5/6 part of the screen
-              flex: 5,
-              child: DashboardScreen(),
+              child: screenPrincipal,
             ),
           ],
         ),
