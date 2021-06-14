@@ -21,20 +21,22 @@ class SideMenu extends GetView {
             DrawerListTile(
               title: "Dashbord",
               svgSrc: "assets/icons/menu_dashbord.svg",
-              press: () {},
+              press: () {
+                Get.offNamed(Routes.HOME);
+              },
             ),
             DrawerListTile(
               title: "Banners",
               svgSrc: "assets/icons/menu_tran.svg",
               press: () {
-                Get.toNamed(Routes.BANNERS);
+                Get.offNamed(Routes.BANNERS);
               },
             ),
             DrawerListTile(
               title: "Cotizaciones",
               svgSrc: "assets/icons/menu_task.svg",
               press: () {
-                Get.toNamed(Routes.QUOTATIONS);
+                Get.offNamed(Routes.QUOTATIONS);
               },
             ),
             DrawerListTile(

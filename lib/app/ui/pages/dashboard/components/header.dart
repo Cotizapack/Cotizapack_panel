@@ -1,31 +1,33 @@
 import 'package:cotizaweb/app/controllers/MenuController.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
-import 'package:cotizaweb/app/ui/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class Header extends GetView<MenuController> {
-  const Header({
-    Key? key,
-  }) : super(key: key);
+  final String title;
+  final ResponsiveScreen screen;
+
+  Header({
+    required this.title,
+    required this.screen,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (!Responsive.isDesktop(context))
+        if (!screen.isDesktop)
           IconButton(
             icon: Icon(Icons.menu),
             onPressed: controller.controlMenu,
           ),
-        if (!Responsive.isMobile(context))
+        if (!screen.isPhone)
           Text(
-            "Dashboard",
-            style: Theme.of(context).textTheme.headline6,
+            title,
+            style: Get.theme.textTheme.headline6,
           ),
-        if (!Responsive.isMobile(context))
-          Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
+        if (!screen.isPhone) Spacer(flex: screen.isDesktop ? 2 : 1),
         Expanded(child: SearchField()),
         ProfileCard()
       ],
@@ -33,13 +35,9 @@ class Header extends GetView<MenuController> {
   }
 }
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    Key? key,
-  }) : super(key: key);
-
+class ProfileCard extends GetResponsiveView {
   @override
-  Widget build(BuildContext context) {
+  Widget builder() {
     return Container(
       margin: EdgeInsets.only(left: defaultPadding),
       padding: EdgeInsets.symmetric(
@@ -57,7 +55,7 @@ class ProfileCard extends StatelessWidget {
             "assets/images/profile_pic.png",
             height: 38,
           ),
-          if (!Responsive.isMobile(context))
+          if (!screen.isPhone)
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
@@ -70,7 +68,7 @@ class ProfileCard extends StatelessWidget {
   }
 }
 
-class SearchField extends StatelessWidget {
+class SearchField extends GetView {
   const SearchField({
     Key? key,
   }) : super(key: key);

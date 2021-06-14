@@ -14,7 +14,45 @@ class DashboardScreen extends GetResponsiveView {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(),
+            Header(
+              title: "Dashboard",
+              screen: screen,
+            ),
+            SizedBox(height: defaultPadding),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: Column(
+                    children: [
+                      MyFiels(),
+                      SizedBox(height: defaultPadding),
+                      RecentFiles(),
+                      SizedBox(height: defaultPadding),
+                      StarageDetails(),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget? tablet() {
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(defaultPadding),
+        child: Column(
+          children: [
+            Header(
+              title: "Dashboard",
+              screen: screen,
+            ),
             SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +84,10 @@ class DashboardScreen extends GetResponsiveView {
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            Header(),
+            Header(
+              title: "Dashboard",
+              screen: screen,
+            ),
             SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

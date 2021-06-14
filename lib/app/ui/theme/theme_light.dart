@@ -9,8 +9,10 @@ final ThemeData appThemelight = ThemeData(
   accentColor: Colors.blue,
   fontFamily: 'Georgia',
   scaffoldBackgroundColor: bgColor,
-  textTheme: GoogleFonts.poppinsTextTheme(Get.theme.textTheme)
-      .apply(bodyColor: Colors.white),
+  textTheme: GoogleFonts.poppinsTextTheme(Get.theme.textTheme).apply(
+    bodyColor: Colors.white,
+    displayColor: Colors.white,
+  ),
   canvasColor: secondaryColor,
   backgroundColor: secondaryColor,
 );

@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import '../../../controllers/banner_controller.dart';
 
 class BannerPage extends GetResponsiveView<BannerController> {
+  BannerPage()
+      : super(settings: ResponsiveScreenSettings(tabletChangePoint: 700));
   @override
   Widget phone() {
     return Phonescreen(
@@ -22,7 +24,6 @@ class BannerPage extends GetResponsiveView<BannerController> {
 
   @override
   Widget desktop() {
-    controller.onInit();
     return Desktoscreen(
       screen: screen,
     );

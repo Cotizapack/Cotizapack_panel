@@ -26,7 +26,7 @@ Widget desktopMode(ResponsiveScreen screen) {
                 borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white30,
+                    color: Colors.white10,
                     blurRadius: 8.0,
                     offset: Offset(-2.0, 2.0),
                   ),
@@ -159,7 +159,7 @@ Widget desktopMode(ResponsiveScreen screen) {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white30,
+                    color: Colors.white10,
                     blurRadius: 8.0,
                     offset: Offset(-2.0, 2.0),
                   ),
@@ -209,7 +209,7 @@ class QuotationsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shadowColor: Colors.white70,
+      shadowColor: Colors.white10,
       child: ListTile(
         title: Row(
           children: [

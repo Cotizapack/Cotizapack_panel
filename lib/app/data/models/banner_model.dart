@@ -6,15 +6,15 @@ import 'dart:convert';
 
 class BannerModel {
   BannerModel({
-    this.id,
-    this.collection,
+    this.id = '',
+    this.collection = '',
     this.permissions,
-    this.title,
-    this.description,
-    this.image,
-    this.createAt,
-    this.enable,
-    this.showAt,
+    this.title = '',
+    this.description = '',
+    this.image = '',
+    this.createAt = 0,
+    this.enable = true,
+    this.showAt = 0,
   });
 
   String? id;
