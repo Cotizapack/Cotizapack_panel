@@ -22,26 +22,130 @@ Widget desktopMode(ResponsiveScreen screen) {
             child: Container(
               margin: EdgeInsets.all(defaultPadding),
               decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(defaultPadding))),
-              child: Center(
+                color: secondaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white30,
+                    blurRadius: 8.0,
+                    offset: Offset(-2.0, 2.0),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
                 child: Form(
                     child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Título'),
+                        //validator: Validators.passwordValidator,
+                        // onChanged: (value) => controller.user.password = value,
+                        cursorColor: Colors.white,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Título',
+                          fillColor: Colors.white,
+                          border: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 1)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          labelStyle: TextStyle(color: Colors.white),
+                          errorStyle: TextStyle(
+                            color: Colors.white,
+                            //fontSize: widthSize * errorFormMessage
+                          ),
+                        ),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: fontSizeTextFormField,
+                        )),
+                    SizedBox(
+                      height: defaultPadding,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Descripción'),
+                        //validator: Validators.passwordValidator,
+                        // onChanged: (value) => controller.user.password = value,
+                        cursorColor: Colors.white,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Descripción',
+                          fillColor: Colors.white,
+                          border: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 1)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          labelStyle: TextStyle(color: Colors.white),
+                          errorStyle: TextStyle(
+                            color: Colors.white,
+                            //fontSize: widthSize * errorFormMessage
+                          ),
+                        ),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: fontSizeTextFormField,
+                        )),
+                    SizedBox(
+                      height: defaultPadding,
                     ),
                     TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Fecha de expiración'),
+                        //validator: Validators.passwordValidator,
+                        // onChanged: (value) => controller.user.password = value,
+                        cursorColor: Colors.white,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: 'Fecha de expiración',
+                          fillColor: Colors.white,
+                          border: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 1)),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 1)),
+                          labelStyle: TextStyle(color: Colors.white),
+                          errorStyle: TextStyle(
+                            color: Colors.white,
+                            //fontSize: widthSize * errorFormMessage
+                          ),
+                        ),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: fontSizeTextFormField,
+                        )),
+                    SizedBox(
+                      height: defaultPadding * 2,
                     ),
-                    MaterialButton(
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                      ),
                       onPressed: () {},
-                      child: Text('Crear cotizacion'),
+                      child: Text(
+                        'Crear Cotización',
+                        style: TextStyle(color: primaryColor),
+                      ),
                     )
                   ],
                 )),
@@ -53,9 +157,16 @@ Widget desktopMode(ResponsiveScreen screen) {
             child: Container(
               margin: EdgeInsets.all(defaultPadding),
               decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(defaultPadding))),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white30,
+                    blurRadius: 8.0,
+                    offset: Offset(-2.0, 2.0),
+                  ),
+                ],
+                color: secondaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
+              ),
               child: Column(
                 children: [
                   Expanded(
@@ -67,7 +178,19 @@ Widget desktopMode(ResponsiveScreen screen) {
                             style: TextStyle(
                                 color: Colors.white70, fontSize: 24.0),
                           ))),
-                  Expanded(flex: 6, child: Container())
+                  Expanded(
+                      flex: 6,
+                      child: Padding(
+                        padding: const EdgeInsets.all(defaultPadding * 2),
+                        child: Container(
+                          child: ListView(
+                            children: [
+                              QuotationsCard(),
+                              QuotationsCard(),
+                            ],
+                          ),
+                        ),
+                      ))
                 ],
               ),
             ),
@@ -76,62 +199,38 @@ Widget desktopMode(ResponsiveScreen screen) {
       ),
     ),
   );
+}
 
-  // return Container(
-  //   color: bgColor,
-  //   child: Center(
-  //     child: Container(
-  //       height: heightSize * 0.65,
-  //       width: widthSize * 0.65,
-  //       child: Card(
-  //         elevation: 5,
-  //         child: Row(
-  //           children: [
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 decoration: new BoxDecoration(
-  //                   gradient: new LinearGradient(
-  //                     colors: [
-  //                       secondaryColor,
-  //                       bgColor,
-  //                     ],
-  //                     begin: const FractionalOffset(0.0, 0.0),
-  //                     end: const FractionalOffset(1.0, 0.0),
-  //                     stops: [0.0, 1.0],
-  //                     tileMode: TileMode.clamp,
-  //                   ),
-  //                 ),
-  //                 child: Align(
-  //                   alignment: Alignment.center,
-  //                   child: Image.asset(
-  //                     'assets/images/loginvctr.png',
-  //                     height: heightSize * 0.5,
-  //                     width: widthSize * 0.5,
-  //                     semanticLabel: 'test',
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Container(
-  //                 padding: EdgeInsets.only(top: 20),
-  //                 color: bgColor,
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.center,
-  //                   children: [
-  //                     Image.asset('images/login-form.png',
-  //                         height: heightSize * 0.2, width: widthSize * 0.15),
-  //                     SizedBox(height: 20),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   ),
-  // );
+class QuotationsCard extends StatelessWidget {
+  const QuotationsCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shadowColor: Colors.white70,
+      child: ListTile(
+        title: Row(
+          children: [
+            Text(
+              'Titulo',
+              style: TextStyle(color: Colors.white70),
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Text(
+              'Fecha de expiración',
+              style: TextStyle(color: Colors.white70),
+            ),
+          ],
+        ),
+        subtitle: Text(
+          'Decripción',
+          style: TextStyle(color: Colors.white70),
+        ),
+      ),
+    );
+  }
 }
