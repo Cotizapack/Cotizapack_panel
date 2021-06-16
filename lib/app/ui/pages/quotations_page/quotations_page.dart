@@ -5,6 +5,7 @@ import 'desktop_mode.dart';
 import 'mobile_mode.dart';
 
 class QuotationsPage extends GetResponsiveView<LoginController> {
+  final items = List<String>.generate(20, (i) => 'Item ${i + 1}');
   @override
   Widget? phone() {
     return mobileMode(screen);

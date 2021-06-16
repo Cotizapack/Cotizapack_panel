@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.QUOTATIONS,
       // initialBinding: HomeBinding(),
       //initialRoute: Routes.INITIAL,
-      home: SplashPage(),
+      //home: SplashPage(),
       initialBinding: SplashBinding(),
       getPages: AppPages.pages,
     );
