@@ -1,10 +1,11 @@
+import 'package:cotizaweb/app/controllers/banner_controller.dart';
 import 'package:cotizaweb/app/data/models/banner_model.dart';
 import 'package:cotizaweb/app/ui/global_widgets/imagenFile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TableBanners extends GetView {
+class TableBanners extends GetView<BannerController> {
   final List<BannerModel> data;
   final bool? movil;
   const TableBanners({
@@ -15,10 +16,9 @@ class TableBanners extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 5,
-      child: SizedBox(
-        width: double.infinity,
+    return SizedBox(
+      width: double.infinity,
+      child: SingleChildScrollView(
         child: DataTable(
           columns: [
             DataColumn(
@@ -47,27 +47,41 @@ class TableBanners extends GetView {
   DataRow bannerRow(BannerModel banner) {
     return DataRow(
       cells: [
-        DataCell(Center(child: ImagenFile(idImagen: banner.image!))),
-        DataCell(Text(banner.title!)),
-        if (!movil!) DataCell(Text(banner.description!)),
-        DataCell(Text(
-          '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(banner.createAt!))}',
-        )),
-        DataCell(Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.edit),
+        DataCell(
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: ImagenFile(idImagen: banner.image!),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.delete,
-                color: Colors.red,
+          ),
+        ),
+        DataCell(Text(banner.title)),
+        if (!movil!)
+          DataCell(
+            Text(banner.description),
+          ),
+        DataCell(
+          Text(
+            '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(banner.createAt!))}',
+          ),
+        ),
+        DataCell(
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => controller.setdataEdit(banner),
+                icon: Icon(Icons.edit),
               ),
-            ),
-          ],
-        )),
+              IconButton(
+                onPressed: () => controller.deleteBanner(banner),
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

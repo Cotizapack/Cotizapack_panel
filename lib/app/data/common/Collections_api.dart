@@ -8,4 +8,7 @@ abstract class Collections {
   static const STATISTIC = '60b589e03736f';
   static const PACKAGE = '60bae155f03e2';
   static const BANNERS = '60c2345bcd31e';
+
+  ///Id del Equipo de administradores en la base de datos
+  static const TEAMADMINID = '60c0033967ee6';
 }

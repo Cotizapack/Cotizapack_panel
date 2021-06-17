@@ -22,6 +22,7 @@ dependencies:
   intl: ^0.17.0
   flutter_dropzone: ^2.0.1
   dotted_border: ^2.0.0
+  syncfusion_flutter_datepicker: ^19.1.67-beta
 
 dev_dependencies:
   flutter_test:

@@ -6,8 +6,8 @@ import 'dart:convert';
 
 class BannerModel {
   BannerModel({
-    this.id = '',
-    this.collection = '',
+    this.id,
+    this.collection,
     this.permissions,
     this.title = '',
     this.description = '',
@@ -20,8 +20,8 @@ class BannerModel {
   String? id;
   String? collection;
   Permissions? permissions;
-  String? title;
-  String? description;
+  String title;
+  String description;
   String? image;
   int? createAt;
   bool? enable;

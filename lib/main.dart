@@ -1,5 +1,4 @@
 import 'package:cotizaweb/app/bindings/splash_binding.dart';
-import 'package:cotizaweb/app/ui/pages/splash_page/splash_page.dart';
 import 'package:cotizaweb/app/ui/theme/theme_light.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,9 +20,9 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.noTransition,
       darkTheme: appThemelight,
       theme: appThemedark,
-      initialRoute: Routes.QUOTATIONS,
+      // initialRoute: Routes.QUOTATIONS,
       // initialBinding: HomeBinding(),
-      //initialRoute: Routes.INITIAL,
+      initialRoute: Routes.INITIAL,
       //home: SplashPage(),
       initialBinding: SplashBinding(),
       getPages: AppPages.pages,
