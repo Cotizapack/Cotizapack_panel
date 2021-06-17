@@ -7,7 +7,7 @@ class BannerBinding implements Bindings {
   @override
   void dependencies() {
     Get.delete<MenuController>();
-    Get.lazyPut<MenuController>(() => MenuController());
+    Get.put<MenuController>(MenuController());
     Get.lazyPut<BannerController>(
       () => BannerController(mybanners: BannerServices()),
     );

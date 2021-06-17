@@ -1,8 +1,11 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
 import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
 import 'package:cotizaweb/app/data/services/user.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 
 class MyGetStorage {
   final box = GetStorage();
@@ -44,17 +47,18 @@ class MyGetStorage {
       if (box.hasData('userData')) {
         _userData = UserData.fromJson(box.read("userData"));
         print('local db has user data: ${_userData.ceoName}');
+        Get.find<GlobalController>().user = _userData;
         return _userData;
       } else {
         var resultSession = await UserRepository().getSessions();
         _mySession = Session.fromJson(resultSession!.data);
-
+        Get.find<GlobalController>().user = _userData;
         _userData =
             await UserRepository().chargeUserData(userID: _mySession.userId!);
         return _userData;
       }
-    } catch (err) {
-      print('Error listen User: $err');
+    } on AppwriteException catch (err) {
+      print('Error listen User: ${err.message}');
       return _userData;
     }
   }

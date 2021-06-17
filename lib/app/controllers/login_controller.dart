@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/common/get_storage.dart';
 import 'package:cotizaweb/app/data/models/user_model.dart';
@@ -28,12 +29,11 @@ class LoginController extends GetxController with StateMixin {
         if (value == null) {
           change(null, status: RxStatus.error('usuario no existe'));
           MyAlert.showMyDialog(
-              title: 'A Ocurrido un Error!',
-              message: 'Disculpe velva a intentarlo',
+              title: 'Error',
+              message: 'por favor, intenta de nuevo',
               color: Colors.red);
           return;
         }
-
         if (value.statusCode! >= 200 && value.statusCode! <= 299) {
           change(null, status: RxStatus.success());
           var a = MyGetStorage().readData(key: 'userData');
@@ -45,38 +45,28 @@ class LoginController extends GetxController with StateMixin {
           Timer(Duration(seconds: 2), () => Get.offAllNamed(Routes.INITIAL));
           return;
         }
-        if (value.statusCode! >= 400 && value.statusCode! <= 499) {
-          change(null, status: RxStatus.error('error x'));
+      }).catchError((e) {
+        var error = e as AppwriteException;
+        if (error.code == 401) {
           MyAlert.showMyDialog(
-              title: 'Error',
-              message: 'por favor, intenta de nuevo',
+              title: 'Credenciales incorrectas',
+              message:
+                  'por favor, revisa las credenciales ingresadas o crea un nuevo perfíl',
               color: Colors.red);
           // Timer(Duration(seconds: 3), () {
           //   btnController.reset();
           // });
           return;
         }
-        if (value.statusCode == 500) {
-          MyAlert.showMyDialog(
-              title: 'Error',
-              message: 'por favor, intenta de nuevo',
-              color: Colors.red);
-          // Timer(Duration(seconds: 3), () {
-          //   btnController.reset();
-          // });
-          return;
-        }
+        print(error.message);
         MyAlert.showMyDialog(
-            title: 'Credenciales incorrectas',
-            message:
-                'por favor, revisa las credenciales ingresadas o crea un nuevo perfíl',
+            title: 'Error',
+            message: 'por favor, intenta de nuevo',
             color: Colors.red);
-        print('asaber');
       });
-    } catch (e) {
-      print('Error $e');
+    } on AppwriteException catch (e) {
+      print('Error ${e.message}');
       change(null, status: RxStatus.error('Error: $e'));
     }
-    Timer(Duration(seconds: 2), () {});
   }
 }

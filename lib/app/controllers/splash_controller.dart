@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/common/get_storage.dart';
 import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
@@ -46,6 +47,7 @@ class SplashController extends GetxController {
       } else {
         UserData value =
             await _userRepository.chargeUserData(userID: session.userId!);
+        Get.find<GlobalController>().user = value;
 
         MyGetStorage().saveData(key: 'userData', data: value.toJson());
         print('Awevo, se guardaron los datos bien');

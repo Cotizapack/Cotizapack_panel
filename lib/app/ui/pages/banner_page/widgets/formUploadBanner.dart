@@ -22,7 +22,7 @@ class FormUploadBanner extends GetView<BannerController> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: defaultPadding),
               child: Text(
-                'Agregar Baner',
+                'Agregar Banner',
                 style: Get.theme.textTheme.headline6,
               ),
             ),

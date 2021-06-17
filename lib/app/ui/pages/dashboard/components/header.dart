@@ -1,4 +1,6 @@
 import 'package:cotizaweb/app/controllers/MenuController.dart';
+import 'package:cotizaweb/app/controllers/global_Controller.dart';
+import 'package:cotizaweb/app/ui/global_widgets/imagenFile.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +37,7 @@ class Header extends GetView<MenuController> {
   }
 }
 
-class ProfileCard extends GetResponsiveView {
+class ProfileCard extends GetResponsiveView<GlobalController> {
   @override
   Widget builder() {
     return Container(
@@ -49,20 +51,35 @@ class ProfileCard extends GetResponsiveView {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: Border.all(color: Colors.white10),
       ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
-          ),
-          if (!screen.isPhone)
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Angelina Joli"),
+      child: PopupMenuButton(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: GestureDetector(
+              onTap: controller.logout,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Icon(Icons.logout), Text("Cerrar Sesion")],
+              ),
             ),
-          Icon(Icons.keyboard_arrow_down),
+          )
         ],
+        child: Row(
+          children: [
+            ImagenFile(
+              idImagen: controller.user.logo ?? '',
+              width: 30,
+              height: 30,
+              circular: 50,
+            ),
+            if (!screen.isPhone)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                child: Text(controller.user.ceoName ?? ""),
+              ),
+            Icon(Icons.keyboard_arrow_down),
+          ],
+        ),
       ),
     );
   }

@@ -41,7 +41,7 @@ class UserRepository {
       printError(
         info: 'Error: ${e.message}',
       );
-      return null;
+      throw e;
     }
   }
 
@@ -60,8 +60,8 @@ class UserRepository {
       Account account = Account(AppwriteSettings.initAppwrite());
       Response response = await account.get();
       return response;
-    } catch (e) {
-      print('Error getSessions: $e');
+    } on AppwriteException catch (e) {
+      print('Error getSessions: ${e.message}');
       throw e;
     }
   }
@@ -72,8 +72,8 @@ class UserRepository {
       Response response = await account.get();
       session = Session.fromJson(response.data);
       return session;
-    } catch (e) {
-      print('Error getSessions: $e');
+    } on AppwriteException catch (e) {
+      print('Error getSessions: ${e.message}');
       MyAlert.showMyDialog(
           title: 'Sesión caducada',
           message: 'Tu actual sesión está caducada, inicia sesión de nuevo',
