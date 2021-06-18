@@ -6,13 +6,14 @@ import 'components/side_menu.dart';
 
 class MainScreen extends GetResponsiveView<MenuController> {
   final Widget screenPrincipal;
-  MainScreen({required this.screenPrincipal});
+  MainScreen({required this.screenPrincipal})
+      : super(settings: ResponsiveScreenSettings(tabletChangePoint: 900));
 
   @override
   Widget? desktop() {
     return Scaffold(
-      backgroundColor: Get.theme.backgroundColor,
-      key: controller.scaffoldKey,
+      /* --------------- backgroundColor: Get.theme.backgroundColor, -------------- */
+      key: controller.newkey(),
       drawer: SideMenu(),
       body: SafeArea(
         child: Row(
@@ -39,7 +40,7 @@ class MainScreen extends GetResponsiveView<MenuController> {
   @override
   Widget? tablet() {
     return Scaffold(
-      key: controller.scaffoldKey,
+      key: controller.newkey(),
       drawer: SideMenu(),
       body: SafeArea(
         child: Row(

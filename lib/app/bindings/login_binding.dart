@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class LoginBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LoginController>(() => LoginController());
+    Get.delete<LoginController>();
+    Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
   }
 }

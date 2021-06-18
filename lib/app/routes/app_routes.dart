@@ -13,6 +13,9 @@ abstract class Routes {
   ///Ruta Banners
   static const BANNERS = '/banners';
 
-  ///Ruta Cotizaciones
-  static const QUOTATIONS = '/quotations';
+  ///Ruta Paketes
+  static const PAKAGES = '/pakages';
+
+  ///Ruta no encontrada
+  static const NOTFOUND = '/notfound';
 }

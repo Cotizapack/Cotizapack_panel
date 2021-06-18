@@ -31,8 +31,8 @@ class MyStorage {
       Response res = await storage.deleteFile(fileId: fileId);
       print('Error update Storage');
       return res;
-    } catch (e) {
-      print('Error delete File: $e');
+    } on AppwriteException catch (e) {
+      print('Error delete File: ${e.message}');
       return null;
     }
   }
@@ -43,7 +43,7 @@ class MyStorage {
       var res = await storage.getFilePreview(fileId: fileId, quality: 1);
       return res.data;
     } on AppwriteException catch (e) {
-      print('Error delete File: ${e.message}');
+      print('Error get File: ${e.message}');
       return null;
     }
   }

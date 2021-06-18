@@ -1,13 +1,14 @@
-import 'package:cotizaweb/app/controllers/banner_controller.dart';
 import 'package:cotizaweb/app/ui/global_widgets/border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:get/get.dart';
 
-class DropZoneWidget extends GetView<BannerController> {
+class DropZoneWidget extends GetView {
   final double? height, width;
+  final dynamic controller;
 
-  DropZoneWidget({this.height = 0, this.width = double.infinity});
+  DropZoneWidget(
+      {this.height = 0, this.width = double.infinity, this.controller});
   @override
   Widget build(BuildContext context) {
     return Obx(

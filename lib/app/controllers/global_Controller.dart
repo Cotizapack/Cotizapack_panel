@@ -18,6 +18,13 @@ class GlobalController extends GetxController {
   logout() {
     _userRepository.logout().then((value) async {
       await MyGetStorage().eraseData();
+      user = UserData(
+          category: UserCategory(
+              id: '',
+              collection: '',
+              enable: false,
+              name: '',
+              description: ''));
       Get.offNamed(Routes.INITIAL);
     });
   }

@@ -1,4 +1,4 @@
-import 'package:cotizaweb/app/controllers/banner_controller.dart';
+import 'package:cotizaweb/app/controllers/pakage_controller.dart';
 import 'package:cotizaweb/app/data/common/validators.dart';
 import 'package:cotizaweb/app/ui/global_widgets/border.dart';
 import 'package:cotizaweb/app/ui/global_widgets/button.dart';
@@ -11,10 +11,10 @@ import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-class FormUploadBanner extends GetView<BannerController> {
+class PakageForm extends GetView<PakagesController> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BannerController>(
+    return GetBuilder<PakagesController>(
       id: "formUpload",
       builder: (_) => Form(
         key: controller.formKey,
@@ -51,8 +51,8 @@ class FormUploadBanner extends GetView<BannerController> {
               child: Padding(
                 padding: const EdgeInsets.only(top: defaultPadding),
                 child: DropZoneWidget(
-                  controller: controller,
                   height: 160,
+                  controller: controller,
                 ),
               ),
             ),
@@ -60,12 +60,12 @@ class FormUploadBanner extends GetView<BannerController> {
                 ? Column(
                     children: [
                       InputText(
-                        name: 'Titulo',
-                        controller: controller.titleController,
+                        name: 'Nombre',
+                        controller: controller.nameController,
                         textInputType: TextInputType.name,
                         validator: Validators.nameValidator,
                         prefixIcon: Icon(LineIcons.edit),
-                        onChanged: (val) => controller.banner.title = val,
+                        onChanged: (val) => controller.pakages.name = val,
                       ),
                       InputText(
                         name: 'Descripcion',
@@ -73,19 +73,81 @@ class FormUploadBanner extends GetView<BannerController> {
                         textInputType: TextInputType.name,
                         validator: Validators.nameValidator,
                         prefixIcon: Icon(LineIcons.editAlt),
-                        onChanged: (val) => controller.banner.description = val,
+                        onChanged: (val) =>
+                            controller.pakages.description = val,
+                      ),
+                      InputText(
+                        name: 'Cantidad Cotizaciones',
+                        controller: controller.quantityController,
+                        textInputType: TextInputType.number,
+                        validator: Validators.numberValidator,
+                        prefixIcon: Icon(LineIcons.sortNumericDown),
+                        onChanged: (val) =>
+                            controller.pakages.quotations = int.parse(val),
+                      ),
+                      InputText(
+                        name: 'Precio',
+                        controller: controller.priceController,
+                        textInputType: TextInputType.number,
+                        validator: Validators.numberValidator,
+                        prefixIcon: Icon(LineIcons.sortNumericDown),
+                        onChanged: (val) =>
+                            controller.pakages.price = int.parse(val),
+                      ),
+                      Obx(
+                        () => Container(
+                          clipBehavior: Clip.hardEdge,
+                          margin: EdgeInsets.only(top: defaultPadding),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: secondaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                spreadRadius: -2,
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 8,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                            border: Border.all(color: Colors.white),
+                          ),
+                          child: SwitchListTile(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            activeColor: primaryColor,
+                            value: controller.onsale.value,
+                            onChanged: (value) => controller.onsale.toggle(),
+                            title: Row(
+                              children: [
+                                Icon(LineIcons.gift),
+                                Text(' En Promocion')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Obx(
+                        () => controller.onsale.value
+                            ? InputText(
+                                name: 'Porcentaje de descuento',
+                                controller: controller.percentageController,
+                                textInputType: TextInputType.number,
+                                validator: Validators.numberValidator,
+                                prefixIcon: Icon(LineIcons.sortNumericDown),
+                                onChanged: (val) => controller
+                                    .pakages.percentage = int.parse(val),
+                              )
+                            : Container(),
                       ),
                       Calendar(
-                        controller: controller.dateTimeController,
+                        controller: null,
                         initialSelectedRange: PickerDateRange(
                           DateTime.now(),
                           DateTime.now().add(
                             const Duration(days: 3),
                           ),
                         ),
-                        minDate: DateTime.now(),
                         maxDate: DateTime.now().add(Duration(days: 60)),
-                        onSelectionChanged: controller.onSelectionChanged,
+                        onSelectionChanged: null,
                         selectionMode: DateRangePickerSelectionMode.range,
                       ),
                       Row(
@@ -95,8 +157,8 @@ class FormUploadBanner extends GetView<BannerController> {
                             funtion: () {
                               if (controller.formKey.currentState!.validate())
                                 return controller.editar
-                                    ? controller.updateMyBanner()
-                                    : controller.saveMyBanner();
+                                    ? controller.updateMyPakage()
+                                    : controller.saveMyPakage();
                             },
                             icon: controller.editar
                                 ? Icon(Icons.edit)

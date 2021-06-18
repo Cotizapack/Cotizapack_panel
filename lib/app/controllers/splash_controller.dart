@@ -14,9 +14,9 @@ class SplashController extends GetxController {
   // AccountRepository _accountRepository = AccountRepository();
 
   @override
-  void onInit() {
+  void onReady() {
     islogin();
-    super.onInit();
+    super.onReady();
   }
 
   void islogin() async {

@@ -6,36 +6,36 @@ import 'dart:convert';
 
 class Pakageclass {
   Pakageclass({
-    required this.id,
-    required this.collection,
-    required this.permissions,
-    required this.name,
-    required this.description,
-    required this.quotations,
-    required this.image,
-    required this.price,
-    required this.onSale,
-    required this.percentage,
-    required this.enable,
-    required this.createAt,
-    required this.updatedAt,
-    required this.expirationPromo,
+    this.id,
+    this.collection,
+    this.permissions,
+    this.name = "",
+    this.description = "",
+    this.quotations = 0,
+    this.image = "",
+    this.price = 0,
+    this.onSale = false,
+    this.percentage = 0,
+    this.enable = true,
+    this.createAt = 0,
+    this.updatedAt = 0,
+    this.expirationPromo = 0,
   });
 
-  String id;
-  String collection;
-  Permissions permissions;
-  String name;
-  String description;
-  int quotations;
-  String image;
-  int price;
-  bool onSale;
-  int percentage;
-  bool enable;
-  int createAt;
-  int updatedAt;
-  int expirationPromo;
+  String? id;
+  String? collection;
+  Permissions? permissions;
+  String? name;
+  String? description;
+  int? quotations;
+  String? image;
+  int? price;
+  bool? onSale;
+  int? percentage;
+  bool? enable;
+  int? createAt;
+  int? updatedAt;
+  int? expirationPromo;
 
   factory Pakageclass.fromJson(String str) =>
       Pakageclass.fromMap(json.decode(str));
@@ -62,7 +62,7 @@ class Pakageclass {
   Map<String, dynamic> toMap() => {
         "\u0024id": id,
         "\u0024collection": collection,
-        "\u0024permissions": permissions.toMap(),
+        "\u0024permissions": permissions?.toMap(),
         "name": name,
         "description": description,
         "quotations": quotations,

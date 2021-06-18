@@ -4,7 +4,7 @@ import 'package:cotizaweb/app/data/models/banner_model.dart';
 import 'package:cotizaweb/app/data/models/isolatemodel.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 import 'package:cotizaweb/app/data/provider/storage.dart';
-import 'package:cotizaweb/app/data/services/file.dart';
+import 'package:cotizaweb/app/data/models/file.dart';
 
 class BannerServices {
   Database? database;

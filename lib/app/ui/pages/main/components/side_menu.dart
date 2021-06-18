@@ -1,4 +1,5 @@
 import 'package:cotizaweb/app/routes/app_pages.dart';
+import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,8 @@ class SideMenu extends GetView {
         child: Column(
           children: [
             DrawerHeader(
-              child: Image.asset("assets/images/logo.png"),
+              padding: EdgeInsets.all(defaultPadding),
+              child: Image.asset("assets/images/logo_skyblue.png"),
             ),
             DrawerListTile(
               title: "Dashbord",
@@ -33,36 +35,11 @@ class SideMenu extends GetView {
               },
             ),
             DrawerListTile(
-              title: "Cotizaciones",
+              title: "Paquetes",
               svgSrc: "assets/icons/menu_task.svg",
               press: () {
-                Get.offNamed(Routes.QUOTATIONS);
+                Get.offNamed(Routes.PAKAGES);
               },
-            ),
-            DrawerListTile(
-              title: "Documents",
-              svgSrc: "assets/icons/menu_doc.svg",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Store",
-              svgSrc: "assets/icons/menu_store.svg",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Notification",
-              svgSrc: "assets/icons/menu_notification.svg",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Profile",
-              svgSrc: "assets/icons/menu_profile.svg",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Settings",
-              svgSrc: "assets/icons/menu_setting.svg",
-              press: () {},
             ),
           ],
         ),

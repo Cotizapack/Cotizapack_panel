@@ -5,7 +5,7 @@ import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/models/banner_model.dart';
 import 'package:cotizaweb/app/data/models/isolatemodel.dart';
 import 'package:cotizaweb/app/data/provider/storage.dart';
-import 'package:cotizaweb/app/data/services/banner_provider.dart';
+import 'package:cotizaweb/app/data/services/banner_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +41,7 @@ class BannerController extends GetxController
   /* ----------------------------- fin datos fecha ---------------------------- */
 
   bool onEdit = false;
+  RxBool onMovil = false.obs;
 
   @override
   void onInit() async {
@@ -65,6 +66,8 @@ class BannerController extends GetxController
       });
     } catch (e) {
       change(null, status: RxStatus.error("Error: $e"));
+    } finally {
+      limpiar();
     }
   }
 
@@ -89,21 +92,23 @@ class BannerController extends GetxController
         color: Colors.green.withOpacity(0.8),
       );
       change(result, status: RxStatus.success());
-      limpiar();
     } catch (e) {
       change(null, status: RxStatus.error("Error: $e"));
+    } finally {
+      limpiar();
     }
   }
 
   setdataEdit(BannerModel bannerEdit) async {
     banner = bannerEdit;
+    onMovil.value = true;
     titleController.text = bannerEdit.title;
     descriptionController.text = bannerEdit.description;
     imagenUploaded.value =
         await MyStorage().getFilePreview(fileId: bannerEdit.image!) ??
             Uint8List.fromList([]);
     editar = true;
-    dateTimeController.selectedRanges = [
+    dateTimeController.selectedRanges = <PickerDateRange>[
       PickerDateRange(
         DateTime.fromMillisecondsSinceEpoch(bannerEdit.createAt!),
         DateTime.fromMillisecondsSinceEpoch(bannerEdit.showAt!),
@@ -141,13 +146,14 @@ class BannerController extends GetxController
       );
 
       change(result, status: RxStatus.success());
-      limpiar();
     } catch (e) {
       MyAlert.showMyDialog(
         title: 'Error',
         message: 'Error: $e',
         color: Colors.red.withOpacity(0.8),
       );
+    } finally {
+      limpiar();
     }
   }
 
@@ -213,6 +219,8 @@ class BannerController extends GetxController
         message: 'Error: $e',
         color: Colors.red.withOpacity(0.8),
       );
+    } finally {
+      limpiar();
     }
   }
 
@@ -234,7 +242,9 @@ class BannerController extends GetxController
       );
       change(result, status: RxStatus.success());
       limpiar();
-    } catch (e) {}
+    } catch (e) {} finally {
+      limpiar();
+    }
   }
 
 /* ---------------------------- Limpiar los datos --------------------------- */
@@ -249,6 +259,7 @@ class BannerController extends GetxController
     dateTimeController.selectedRanges = [
       PickerDateRange(DateTime.now(), DateTime.now().add(Duration(days: 3)))
     ];
+    onMovil.value = false;
     update(["formUpload"]);
   }
 
