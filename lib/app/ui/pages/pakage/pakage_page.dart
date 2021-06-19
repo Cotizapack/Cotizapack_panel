@@ -5,6 +5,8 @@ import 'desktop_mode.dart';
 import 'mobile_mode.dart';
 
 class PakagesPage extends GetResponsiveView<PakagesController> {
+  PakagesPage()
+      : super(settings: ResponsiveScreenSettings(tabletChangePoint: 1024));
   @override
   Widget? phone() {
     return Movilcreen(screen: screen);

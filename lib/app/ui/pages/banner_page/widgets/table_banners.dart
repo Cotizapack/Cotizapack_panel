@@ -20,6 +20,7 @@ class TableBanners extends GetView<BannerController> {
       width: double.infinity,
       child: SingleChildScrollView(
         child: DataTable(
+          columnSpacing: 10,
           columns: [
             DataColumn(
               label: Text("Imagen"),

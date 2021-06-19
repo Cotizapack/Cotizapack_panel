@@ -19,6 +19,7 @@ class TablePakages extends GetView<PakagesController> {
       width: double.infinity,
       child: SingleChildScrollView(
         child: DataTable(
+          columnSpacing: 10,
           columns: [
             DataColumn(
               label: Text("Nombre"),
@@ -30,9 +31,10 @@ class TablePakages extends GetView<PakagesController> {
             DataColumn(
               label: Text("Cotizaciones"),
             ),
-            DataColumn(
-              label: Text("Descuento"),
-            ),
+            if (!movil!)
+              DataColumn(
+                label: Text("Descuento"),
+              ),
             DataColumn(
               label: Text("Creado"),
             ),
@@ -50,12 +52,9 @@ class TablePakages extends GetView<PakagesController> {
     return DataRow(
       cells: [
         DataCell(Text(pakage.name!)),
-        if (!movil!)
-          DataCell(
-            Text(pakage.description!),
-          ),
+        if (!movil!) DataCell(Text(pakage.description!)),
         DataCell(Text('${pakage.quotations}')),
-        DataCell(Text('${pakage.percentage}')),
+        if (!movil!) DataCell(Text('${pakage.percentage}')),
         DataCell(
           Text(
             '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(pakage.createAt!))}',

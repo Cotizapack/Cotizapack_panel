@@ -151,6 +151,7 @@ class PakagesController extends GetxController
   setdataEdit(Pakageclass pakageEdit) async {
     pakages = pakageEdit;
     onMovil.value = true;
+    onsale.value = pakageEdit.onSale!;
     nameController.text = pakageEdit.name!;
     descriptionController.text = pakageEdit.description!;
     quantityController.text = pakageEdit.quotations!.toString();

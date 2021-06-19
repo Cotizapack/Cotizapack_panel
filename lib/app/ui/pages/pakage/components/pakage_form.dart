@@ -119,7 +119,12 @@ class PakageForm extends GetView<PakagesController> {
                             title: Row(
                               children: [
                                 Icon(LineIcons.gift),
-                                Text(' En Promocion')
+                                Expanded(
+                                  child: Text(
+                                    ' En Promocion',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
                               ],
                             ),
                           ),
