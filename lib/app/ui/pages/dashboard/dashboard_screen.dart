@@ -104,6 +104,7 @@ class DashboardScreen extends GetResponsiveView {
                 ),
                 SizedBox(width: defaultPadding),
                 // On Mobile means if the screen is less than 850 we dont want to show it
+                VerticalDivider(),
                 Expanded(
                   flex: 2,
                   child: StarageDetails(),

@@ -1,14 +1,13 @@
-import 'package:cotizaweb/app/controllers/banner_controller.dart';
-import 'package:cotizaweb/app/data/models/banner_model.dart';
-import 'package:cotizaweb/app/ui/global_widgets/imagenFile.dart';
+import 'package:cotizaweb/app/controllers/pakage_controller.dart';
+import 'package:cotizaweb/app/data/models/PakageModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TableBanners extends GetView<BannerController> {
-  final List<BannerModel> data;
+class TablePakages extends GetView<PakagesController> {
+  final List<Pakageclass> data;
   final bool? movil;
-  const TableBanners({
+  const TablePakages({
     Key? key,
     required this.data,
     this.movil = false,
@@ -23,14 +22,18 @@ class TableBanners extends GetView<BannerController> {
           columnSpacing: 10,
           columns: [
             DataColumn(
-              label: Text("Imagen"),
-            ),
-            DataColumn(
-              label: Text("Titulo"),
+              label: Text("Nombre"),
             ),
             if (!movil!)
               DataColumn(
-                label: Text("Descripción"),
+                label: Text("Description"),
+              ),
+            DataColumn(
+              label: Text("Cotizaciones"),
+            ),
+            if (!movil!)
+              DataColumn(
+                label: Text("Descuento"),
               ),
             DataColumn(
               label: Text("Creado"),
@@ -39,42 +42,33 @@ class TableBanners extends GetView<BannerController> {
               label: Text("Acciones"),
             ),
           ],
-          rows: List.generate(data.length, (index) => bannerRow(data[index])),
+          rows: List.generate(data.length, (index) => pakageRow(data[index])),
         ),
       ),
     );
   }
 
-  DataRow bannerRow(BannerModel banner) {
+  DataRow pakageRow(Pakageclass pakage) {
     return DataRow(
       cells: [
-        DataCell(
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: ImagenFile(idImagen: banner.image!),
-            ),
-          ),
-        ),
-        DataCell(Text(banner.title)),
-        if (!movil!)
-          DataCell(
-            Text(banner.description),
-          ),
+        DataCell(Text(pakage.name!)),
+        if (!movil!) DataCell(Text(pakage.description!)),
+        DataCell(Text('${pakage.quotations}')),
+        if (!movil!) DataCell(Text('${pakage.percentage}')),
         DataCell(
           Text(
-            '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(banner.createAt!))}',
+            '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(pakage.createAt!))}',
           ),
         ),
         DataCell(
           Row(
             children: [
               IconButton(
-                onPressed: () => controller.setdataEdit(banner),
+                onPressed: () => controller.setdataEdit(pakage),
                 icon: Icon(Icons.edit),
               ),
               IconButton(
-                onPressed: () => controller.deleteBanner(banner),
+                onPressed: () => controller.deletePakage(pakage),
                 icon: Icon(
                   Icons.delete,
                   color: Colors.red,

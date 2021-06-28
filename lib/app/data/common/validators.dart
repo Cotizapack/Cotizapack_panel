@@ -1,3 +1,5 @@
+import 'package:get/utils.dart';
+
 class Validators {
   static String? phoneValidator(String? value) {
     if (value!.isEmpty) {
@@ -11,6 +13,13 @@ class Validators {
   static String? nameValidator(value) {
     if (value.isEmpty) {
       return 'Campo obligatorio';
+    }
+  }
+
+  static String? numberValidator(value) {
+    GetUtils.isNumericOnly(value);
+    if (!GetUtils.isNumericOnly(value)) {
+      return 'No es un numero.';
     }
   }
 

@@ -1,13 +1,14 @@
-import 'package:cotizaweb/app/controllers/banner_controller.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:cotizaweb/app/ui/global_widgets/border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:get/get.dart';
 
-class DropZoneWidget extends GetView<BannerController> {
+class DropZoneWidget extends GetView {
   final double? height, width;
+  final dynamic controller;
 
-  DropZoneWidget({this.height = 0, this.width = double.infinity});
+  DropZoneWidget(
+      {this.height = 0, this.width = double.infinity, this.controller});
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -55,22 +56,6 @@ class DropZoneWidget extends GetView<BannerController> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  ClipRRect buildBorder({required Widget child}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: DottedBorder(
-          radius: Radius.circular(20),
-          borderType: BorderType.RRect,
-          color: Colors.white,
-          padding: EdgeInsets.zero,
-          child: child,
         ),
       ),
     );

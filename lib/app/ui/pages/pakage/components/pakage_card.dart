@@ -1,7 +1,9 @@
+import 'package:cotizaweb/app/controllers/pakage_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class QuotationsCard extends StatelessWidget {
-  const QuotationsCard({
+class PagakeCard extends GetView<PakagesController> {
+  const PagakeCard({
     Key? key,
   }) : super(key: key);
 

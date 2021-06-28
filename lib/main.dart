@@ -1,13 +1,16 @@
 import 'package:cotizaweb/app/bindings/splash_binding.dart';
-import 'package:cotizaweb/app/ui/pages/splash_page/splash_page.dart';
 import 'package:cotizaweb/app/ui/theme/theme_light.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'app/controllers/MenuController.dart';
+import 'app/controllers/global_Controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/ui/theme/theme_dark.dart';
 
 void main() {
+  Get.put(GlobalController());
+  Get.put(MenuController());
   initializeDateFormatting('es_US');
   runApp(MyApp());
 }
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
       //home: SplashPage(),
       initialBinding: SplashBinding(),
       getPages: AppPages.pages,
+      unknownRoute: AppPages.unknownRoute,
     );
   }
 }
