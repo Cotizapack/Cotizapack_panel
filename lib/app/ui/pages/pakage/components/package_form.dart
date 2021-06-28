@@ -1,4 +1,4 @@
-import 'package:cotizaweb/app/controllers/pakage_controller.dart';
+import 'package:cotizaweb/app/controllers/Package_controller.dart';
 import 'package:cotizaweb/app/data/common/validators.dart';
 import 'package:cotizaweb/app/ui/global_widgets/border.dart';
 import 'package:cotizaweb/app/ui/global_widgets/button.dart';
@@ -11,10 +11,10 @@ import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-class PakageForm extends GetView<PakagesController> {
+class PackageForm extends GetView<PackagesController> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PakagesController>(
+    return GetBuilder<PackagesController>(
       id: "formUpload",
       builder: (_) => Form(
         key: controller.formKey,
@@ -23,7 +23,7 @@ class PakageForm extends GetView<PakagesController> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: defaultPadding),
               child: Text(
-                'Agregar Banner',
+                'Agregar Paquete',
                 style: Get.theme.textTheme.headline6,
               ),
             ),
@@ -65,7 +65,7 @@ class PakageForm extends GetView<PakagesController> {
                         textInputType: TextInputType.name,
                         validator: Validators.nameValidator,
                         prefixIcon: Icon(LineIcons.edit),
-                        onChanged: (val) => controller.pakages.name = val,
+                        onChanged: (val) => controller.packages.name = val,
                       ),
                       InputText(
                         name: 'Descripcion',
@@ -74,7 +74,7 @@ class PakageForm extends GetView<PakagesController> {
                         validator: Validators.nameValidator,
                         prefixIcon: Icon(LineIcons.editAlt),
                         onChanged: (val) =>
-                            controller.pakages.description = val,
+                            controller.packages.description = val,
                       ),
                       InputText(
                         name: 'Cantidad Cotizaciones',
@@ -83,7 +83,7 @@ class PakageForm extends GetView<PakagesController> {
                         validator: Validators.numberValidator,
                         prefixIcon: Icon(LineIcons.sortNumericDown),
                         onChanged: (val) =>
-                            controller.pakages.quotations = int.parse(val),
+                            controller.packages.quotations = int.parse(val),
                       ),
                       InputText(
                         name: 'Precio',
@@ -92,7 +92,7 @@ class PakageForm extends GetView<PakagesController> {
                         validator: Validators.numberValidator,
                         prefixIcon: Icon(LineIcons.sortNumericDown),
                         onChanged: (val) =>
-                            controller.pakages.price = int.parse(val),
+                            controller.packages.price = int.parse(val),
                       ),
                       Obx(
                         () => Container(
@@ -139,7 +139,7 @@ class PakageForm extends GetView<PakagesController> {
                                 validator: Validators.numberValidator,
                                 prefixIcon: Icon(LineIcons.sortNumericDown),
                                 onChanged: (val) => controller
-                                    .pakages.percentage = int.parse(val),
+                                    .packages.percentage = int.parse(val),
                               )
                             : Container(),
                       ),
@@ -162,8 +162,8 @@ class PakageForm extends GetView<PakagesController> {
                             funtion: () {
                               if (controller.formKey.currentState!.validate())
                                 return controller.editar
-                                    ? controller.updateMyPakage()
-                                    : controller.saveMyPakage();
+                                    ? controller.updateMyPackage()
+                                    : controller.saveMyPackage();
                             },
                             icon: controller.editar
                                 ? Icon(Icons.edit)

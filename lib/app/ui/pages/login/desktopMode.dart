@@ -7,71 +7,49 @@ Widget desktopMode(ResponsiveScreen screen) {
   final double widthSize = screen.width;
   final double heightSize = screen.height;
 
-  return Container(
-    color: bgColor,
-    child: Center(
-      child: Container(
-        height: heightSize * 0.65,
-        width: widthSize * 0.65,
-        child: Card(
-          elevation: 5,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                      colors: [
-                        secondaryColor,
-                        bgColor,
-                      ],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp,
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/images/loginvctr.png',
-                      height: heightSize * 0.5,
-                      width: widthSize * 0.5,
-                      semanticLabel: 'test',
-                    ),
-                  ),
-                ),
+  return Material(
+    child: Container(
+      color: bgColor,
+      child: Center(
+        child: Container(
+          height: heightSize * 0.65,
+          width: widthSize > 700 ? widthSize * 0.5 : widthSize * 0.8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(10, 10),
+                blurRadius: 30,
+                color: Color(0xFF1c1d2a),
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.only(top: 20),
-                  color: bgColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset('images/login-form.png',
-                          height: heightSize * 0.2, width: widthSize * 0.15),
-                      SizedBox(height: 20),
-                      LoginForm(
-                        0,
-                        0.009,
-                        16,
-                        0.04,
-                        0.01,
-                        0.04,
-                        75,
-                        0.01,
-                        0.007,
-                        0.01,
-                        0.006,
-                      ),
-                    ],
-                  ),
-                ),
+              BoxShadow(
+                offset: Offset(-10, -10),
+                color: Color(0xFF26293a),
+                blurRadius: 30,
               ),
             ],
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: bgColor,
+            ),
+            padding: EdgeInsets.only(top: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo_white.png',
+                  height: heightSize * 0.15,
+                  width: widthSize * 0.15,
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: LoginForm(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

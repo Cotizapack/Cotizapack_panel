@@ -1,11 +1,11 @@
 import 'package:cotizaweb/app/data/services/package_services.dart';
 import 'package:get/get.dart';
-import '../controllers/pakage_controller.dart';
+import '../controllers/Package_controller.dart';
 
-class PakagesBinding implements Bindings {
+class PackagesBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PakagesController>(
-        () => PakagesController(mypakage: PakageRepository()));
+    Get.lazyPut<PackagesController>(
+        () => PackagesController(myPackage: PackageRepository()));
   }
 }

@@ -1,4 +1,4 @@
-import 'PakageModel.dart';
+import 'PackageModel.dart';
 import 'categories.dart';
 
 class UserList {
@@ -37,7 +37,7 @@ class UserData {
   String? collection;
   String? userID;
   String? rfc;
-  List<Pakageclass>? packages;
+  List<Packageclass>? packages;
   bool? enable;
   String? nickname;
   String? logo;
@@ -56,9 +56,9 @@ class UserData {
         //name: json["name"],
         userID: json["userID"] ?? '',
         packages: json["packages"] == null
-            ? <Pakageclass>[]
+            ? <Packageclass>[]
             : (json["packages"] as List)
-                .map<Pakageclass>((e) => Pakageclass.fromMap(e))
+                .map<Packageclass>((e) => Packageclass.fromMap(e))
                 .toList(),
         enable: json["enable"] ?? true,
         nickname: json["nickName"] ?? '',

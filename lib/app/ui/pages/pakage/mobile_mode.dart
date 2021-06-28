@@ -1,4 +1,4 @@
-import 'package:cotizaweb/app/controllers/pakage_controller.dart';
+import 'package:cotizaweb/app/controllers/Package_controller.dart';
 import 'package:cotizaweb/app/ui/global_widgets/button.dart';
 import 'package:cotizaweb/app/ui/pages/dashboard/components/header.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_responsive.dart';
 
-import 'components/pakage_form.dart';
-import 'components/pakages_current_list.dart';
+import 'components/Package_form.dart';
+import 'components/Packages_current_list.dart';
 
-class Movilcreen extends GetView<PakagesController> {
+class Movilcreen extends GetView<PackagesController> {
   final ResponsiveScreen screen;
 
   Movilcreen({required this.screen});
@@ -43,7 +43,7 @@ class Movilcreen extends GetView<PakagesController> {
                                 ),
                                 padding: EdgeInsets.all(defaultPadding),
                                 child: SingleChildScrollView(
-                                  child: PakageForm(),
+                                  child: PackageForm(),
                                 ),
                               )
                             : ButtonCuston(
@@ -72,7 +72,7 @@ class Movilcreen extends GetView<PakagesController> {
                               Padding(
                                 padding:
                                     const EdgeInsets.all(defaultPadding * 2),
-                                child: TablePakages(
+                                child: TablePackages(
                                   data: data!,
                                   movil: true,
                                 ),

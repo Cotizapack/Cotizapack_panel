@@ -1,11 +1,11 @@
 // To parse this JSON data, do
 //
-//     final pakageclass = pakageclassFromMap(jsonString);
+//     final Packageclass = PackageclassFromMap(jsonString);
 
 import 'dart:convert';
 
-class Pakageclass {
-  Pakageclass({
+class Packageclass {
+  Packageclass({
     this.id,
     this.collection,
     this.permissions,
@@ -37,12 +37,12 @@ class Pakageclass {
   int? updatedAt;
   int? expirationPromo;
 
-  factory Pakageclass.fromJson(String str) =>
-      Pakageclass.fromMap(json.decode(str));
+  factory Packageclass.fromJson(String str) =>
+      Packageclass.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Pakageclass.fromMap(Map<String, dynamic> json) => Pakageclass(
+  factory Packageclass.fromMap(Map<String, dynamic> json) => Packageclass(
         id: json["\u0024id"],
         collection: json["\u0024collection"],
         permissions: Permissions.fromMap(json["\u0024permissions"]),

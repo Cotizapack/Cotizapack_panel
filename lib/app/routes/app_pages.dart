@@ -47,11 +47,11 @@ abstract class AppPages {
       ],
     ),
     GetPage(
-      name: Routes.PAKAGES,
+      name: Routes.PackageS,
       page: () => MainScreen(
-        screenPrincipal: PakagesPage(),
+        screenPrincipal: PackagesPage(),
       ),
-      binding: PakagesBinding(),
+      binding: PackagesBinding(),
       middlewares: [
         RouteAuthMiddleware(priority: 0),
       ],

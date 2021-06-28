@@ -1,8 +1,8 @@
-import 'package:cotizaweb/app/controllers/pakage_controller.dart';
+import 'package:cotizaweb/app/controllers/Package_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PagakeCard extends GetView<PakagesController> {
+class PagakeCard extends GetView<PackagesController> {
   const PagakeCard({
     Key? key,
   }) : super(key: key);

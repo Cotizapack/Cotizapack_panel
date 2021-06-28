@@ -1,14 +1,14 @@
-import 'package:cotizaweb/app/controllers/pakage_controller.dart';
+import 'package:cotizaweb/app/controllers/Package_controller.dart';
 import 'package:cotizaweb/app/ui/pages/dashboard/components/header.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_responsive.dart';
 
-import 'components/pakage_form.dart';
-import 'components/pakages_current_list.dart';
+import 'components/Package_form.dart';
+import 'components/Packages_current_list.dart';
 
-class Desktoscreen extends GetView<PakagesController> {
+class Desktoscreen extends GetView<PackagesController> {
   final ResponsiveScreen screen;
 
   Desktoscreen({required this.screen});
@@ -47,7 +47,7 @@ class Desktoscreen extends GetView<PakagesController> {
                             flex: 6,
                             child: Padding(
                               padding: const EdgeInsets.all(defaultPadding * 2),
-                              child: TablePakages(data: data!),
+                              child: TablePackages(data: data!),
                             ),
                           )
                         ],
@@ -59,7 +59,7 @@ class Desktoscreen extends GetView<PakagesController> {
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(defaultPadding),
-                          child: PakageForm(),
+                          child: PackageForm(),
                         ),
                       ),
                     ),

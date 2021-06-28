@@ -1,13 +1,13 @@
-import 'package:cotizaweb/app/controllers/pakage_controller.dart';
-import 'package:cotizaweb/app/data/models/PakageModel.dart';
+import 'package:cotizaweb/app/controllers/Package_controller.dart';
+import 'package:cotizaweb/app/data/models/PackageModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TablePakages extends GetView<PakagesController> {
-  final List<Pakageclass> data;
+class TablePackages extends GetView<PackagesController> {
+  final List<Packageclass> data;
   final bool? movil;
-  const TablePakages({
+  const TablePackages({
     Key? key,
     required this.data,
     this.movil = false,
@@ -42,33 +42,33 @@ class TablePakages extends GetView<PakagesController> {
               label: Text("Acciones"),
             ),
           ],
-          rows: List.generate(data.length, (index) => pakageRow(data[index])),
+          rows: List.generate(data.length, (index) => packageRow(data[index])),
         ),
       ),
     );
   }
 
-  DataRow pakageRow(Pakageclass pakage) {
+  DataRow packageRow(Packageclass package) {
     return DataRow(
       cells: [
-        DataCell(Text(pakage.name!)),
-        if (!movil!) DataCell(Text(pakage.description!)),
-        DataCell(Text('${pakage.quotations}')),
-        if (!movil!) DataCell(Text('${pakage.percentage}')),
+        DataCell(Text(package.name!)),
+        if (!movil!) DataCell(Text(package.description!)),
+        DataCell(Text('${package.quotations}')),
+        if (!movil!) DataCell(Text('${package.percentage}')),
         DataCell(
           Text(
-            '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(pakage.createAt!))}',
+            '${DateFormat.yMd('es_US').format(DateTime.fromMillisecondsSinceEpoch(package.createAt!))}',
           ),
         ),
         DataCell(
           Row(
             children: [
               IconButton(
-                onPressed: () => controller.setdataEdit(pakage),
+                onPressed: () => controller.setdataEdit(package),
                 icon: Icon(Icons.edit),
               ),
               IconButton(
-                onPressed: () => controller.deletePakage(pakage),
+                onPressed: () => controller.deletePackage(package),
                 icon: Icon(
                   Icons.delete,
                   color: Colors.red,

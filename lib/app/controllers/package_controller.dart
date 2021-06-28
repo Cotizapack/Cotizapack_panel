@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:cotizaweb/app/data/common/alert.dart';
-import 'package:cotizaweb/app/data/models/PakageModel.dart';
+import 'package:cotizaweb/app/data/models/PackageModel.dart';
+import 'package:cotizaweb/app/data/models/isolateModelPackage.dart';
 import 'package:cotizaweb/app/data/provider/storage.dart';
 import 'package:cotizaweb/app/data/services/package_services.dart';
 import 'package:flutter/foundation.dart';
@@ -12,11 +13,11 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'dart:ui' as ui show Image;
 
-class PakagesController extends GetxController
-    with StateMixin<List<Pakageclass>> {
-  Pakageclass pakages = Pakageclass();
+class PackagesController extends GetxController
+    with StateMixin<List<Packageclass>> {
+  Packageclass packages = Packageclass();
   late DropzoneViewController controllerFile;
-  final PakageRepository mypakage;
+  final PackageRepository myPackage;
   RxBool hoverFile = false.obs;
   RxBool sendData = false.obs;
   RxBool onsale = false.obs;
@@ -44,21 +45,21 @@ class PakagesController extends GetxController
   TextEditingController percentageController = TextEditingController();
   /* -------------------------- controladores Texbox -------------------------- */
 
-  PakagesController({required this.mypakage});
+  PackagesController({required this.myPackage});
   @override
   void onInit() {
     change(null, status: RxStatus.empty());
-    getAllMyPakages();
-    pakages.updatedAt = DateTime.now().millisecondsSinceEpoch;
-    pakages.expirationPromo =
+    getAllMyPackages();
+    packages.updatedAt = DateTime.now().millisecondsSinceEpoch;
+    packages.expirationPromo =
         DateTime.now().add(Duration(days: 3)).millisecondsSinceEpoch;
     super.onInit();
   }
 
-  getAllMyPakages() {
+  getAllMyPackages() {
     try {
       change(null, status: RxStatus.loading());
-      mypakage.getPackages().then((value) {
+      myPackage.getPackages().then((value) {
         if (value == null)
           return change(null, status: RxStatus.error("Error: null"));
         change(value, status: RxStatus.success());
@@ -74,7 +75,7 @@ class PakagesController extends GetxController
   }
 
   /* ----------------------- Guardar en la base de datos ---------------------- */
-  saveMyPakage() async {
+  saveMyPackage() async {
     try {
       if (!hoverFile.value)
         return MyAlert.showMyDialog(
@@ -84,13 +85,13 @@ class PakagesController extends GetxController
         );
       sendData.value = true;
       update(['formUpload']);
-      pakages.onSale = onsale.value;
-      pakages.createAt = DateTime.now().millisecondsSinceEpoch;
+      packages.onSale = onsale.value;
+      packages.createAt = DateTime.now().millisecondsSinceEpoch;
 
-      var data =
-          Isolateparam(pakage: pakages, image: image, filename: fileName);
-      var result = await compute<Isolateparam, List<Pakageclass>?>(
-          mypakage.savePackage, data);
+      var data = IsolateparamPackage(
+          package: packages, image: image, filename: fileName);
+      var result = await compute<IsolateparamPackage, List<Packageclass>?>(
+          myPackage.savePackage, data);
 
       sendData.value = false;
       if (result == null)
@@ -117,21 +118,21 @@ class PakagesController extends GetxController
     }
   }
 
-  updateMyPakage() async {
+  updateMyPackage() async {
     try {
       sendData.value = true;
       update(['formUpload']);
-      pakages.updatedAt = DateTime.now().millisecondsSinceEpoch;
-      var data =
-          Isolateparam(pakage: pakages, image: image, filename: fileName);
-      var result = await compute<Isolateparam, List<Pakageclass>?>(
-          mypakage.updatePackages, data);
+      packages.updatedAt = DateTime.now().millisecondsSinceEpoch;
+      var data = IsolateparamPackage(
+          package: packages, image: image, filename: fileName);
+      var result = await compute<IsolateparamPackage, List<Packageclass>?>(
+          myPackage.updatePackages, data);
 
       sendData.value = false;
       if (result == null)
         return MyAlert.showMyDialog(
           title: 'Error',
-          message: 'Error al actualizar el Pakage',
+          message: 'Error al actualizar el Package',
           color: Colors.red.withOpacity(0.8),
         );
       MyAlert.showMyDialog(
@@ -148,23 +149,23 @@ class PakagesController extends GetxController
     }
   }
 
-  setdataEdit(Pakageclass pakageEdit) async {
-    pakages = pakageEdit;
+  setdataEdit(Packageclass packageEdit) async {
+    packages = packageEdit;
     onMovil.value = true;
-    onsale.value = pakageEdit.onSale!;
-    nameController.text = pakageEdit.name!;
-    descriptionController.text = pakageEdit.description!;
-    quantityController.text = pakageEdit.quotations!.toString();
-    priceController.text = pakageEdit.price!.toString();
-    percentageController.text = pakageEdit.percentage!.toString();
+    onsale.value = packageEdit.onSale!;
+    nameController.text = packageEdit.name!;
+    descriptionController.text = packageEdit.description!;
+    quantityController.text = packageEdit.quotations!.toString();
+    priceController.text = packageEdit.price!.toString();
+    percentageController.text = packageEdit.percentage!.toString();
     imagenUploaded.value =
-        await MyStorage().getFilePreview(fileId: pakageEdit.image!) ??
+        await MyStorage().getFilePreview(fileId: packageEdit.image!) ??
             Uint8List.fromList([]);
     editar = true;
     dateTimeController.selectedRanges = <PickerDateRange>[
       PickerDateRange(
-        DateTime.fromMillisecondsSinceEpoch(pakageEdit.updatedAt!),
-        DateTime.fromMillisecondsSinceEpoch(pakageEdit.expirationPromo!),
+        DateTime.fromMillisecondsSinceEpoch(packageEdit.updatedAt!),
+        DateTime.fromMillisecondsSinceEpoch(packageEdit.expirationPromo!),
       )
     ];
     update(['formUpload']);
@@ -174,14 +175,14 @@ class PakagesController extends GetxController
     if (args.value is PickerDateRange) {
       var startDate = args.value.startDate as DateTime;
       var endDate = args.value.startDate as DateTime;
-      pakages.createAt = startDate.millisecondsSinceEpoch;
-      pakages.expirationPromo = endDate.millisecondsSinceEpoch;
+      packages.createAt = startDate.millisecondsSinceEpoch;
+      packages.expirationPromo = endDate.millisecondsSinceEpoch;
     } else if (args.value is DateTime) {
       selectedDate = args.value.toString();
       var startDate = args.value.startDate as DateTime;
       var endDate = args.value.startDate as DateTime;
-      pakages.createAt = startDate.millisecondsSinceEpoch;
-      pakages.expirationPromo = endDate.millisecondsSinceEpoch;
+      packages.createAt = startDate.millisecondsSinceEpoch;
+      packages.expirationPromo = endDate.millisecondsSinceEpoch;
     } else if (args.value is List<DateTime>) {
       dateCount = args.value.length.toString();
     } else {
@@ -233,15 +234,15 @@ class PakagesController extends GetxController
     );
   }
 
-  /* ------------- borrar Pakage de la base de datos con la imagen ------------ */
-  deletePakage(Pakageclass pakage) {
+  /* ------------- borrar Package de la base de datos con la imagen ------------ */
+  deletePackage(Packageclass package) {
     try {
       Get.defaultDialog(
-        title: "Eliminar Pakage",
+        title: "Eliminar Package",
         content: Column(
           children: [
             Text(
-              "Se Eliminar el Pakage ${pakage.name}",
+              "Se Eliminar el Package ${package.name}",
               maxLines: 2,
             ),
             Text("¿Esta Seguro?"),
@@ -286,7 +287,7 @@ class PakagesController extends GetxController
             ),
             onPressed: () async {
               Get.back();
-              deletePakageConfirmado(pakage);
+              deletePackageConfirmado(package);
             }),
       );
     } catch (e) {
@@ -300,11 +301,11 @@ class PakagesController extends GetxController
     }
   }
 
-  deletePakageConfirmado(Pakageclass pakage) async {
+  deletePackageConfirmado(Packageclass package) async {
     try {
-      var data = Isolateparam(pakage: pakage);
-      var result = await compute<Isolateparam, List<Pakageclass>?>(
-          mypakage.detelePackages, data);
+      var data = IsolateparamPackage(package: package);
+      var result = await compute<IsolateparamPackage, List<Packageclass>?>(
+          myPackage.detelePackages, data);
       if (result == null)
         return MyAlert.showMyDialog(
           title: 'Error',
@@ -345,7 +346,7 @@ class PakagesController extends GetxController
     hoverFile.value = false;
     editar = false;
     imagenUploaded.value = Uint8List.fromList([]);
-    pakages = Pakageclass();
+    packages = Packageclass();
     dateTimeController.selectedRanges = <PickerDateRange>[
       PickerDateRange(DateTime.now(), DateTime.now().add(Duration(days: 3)))
     ];
@@ -360,12 +361,4 @@ class PakagesController extends GetxController
 
   /* ---------------------------- fin eliminar data --------------------------- */
 
-}
-
-class Isolateparam {
-  final Pakageclass? pakage;
-  final List<int>? image;
-  final String? filename;
-
-  Isolateparam({this.pakage, this.image, this.filename});
 }

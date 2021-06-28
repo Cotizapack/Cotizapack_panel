@@ -38,7 +38,7 @@ class SideMenu extends GetView {
               title: "Paquetes",
               svgSrc: "assets/icons/menu_task.svg",
               press: () {
-                Get.offNamed(Routes.PAKAGES);
+                Get.offNamed(Routes.PackageS);
               },
             ),
           ],
