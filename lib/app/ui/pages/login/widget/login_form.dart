@@ -40,16 +40,14 @@ class LoginForm extends GetView<LoginController> {
       key: controller.formKey,
       child: Padding(
         padding: EdgeInsets.only(
-            left: widthSize * 0.05,
-            right: widthSize * 0.05,
-            top: heightSize * paddingTopForm),
+            left: 16.0, right: 16.0, top: heightSize * paddingTopForm),
         child: Column(
           children: <Widget>[
             Align(
                 alignment: Alignment.centerLeft,
                 child: Text('Correo electrónico',
                     style: TextStyle(
-                        fontSize: widthSize * fontSizeTextField,
+                        fontSize: 14.0,
                         fontFamily: 'Poppins',
                         color: Colors.white))),
             TextFormField(
@@ -71,9 +69,7 @@ class LoginForm extends GetView<LoginController> {
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white, width: 2)),
                 labelStyle: TextStyle(color: Colors.white),
-                errorStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: widthSize * errorFormMessage),
+                errorStyle: TextStyle(color: Colors.red, fontSize: 14.0),
                 prefixIcon: Icon(
                   Icons.person,
                   size: widthSize * iconFormSize,
@@ -91,7 +87,7 @@ class LoginForm extends GetView<LoginController> {
                 alignment: Alignment.centerLeft,
                 child: Text('Contraseña',
                     style: TextStyle(
-                        fontSize: widthSize * fontSizeTextField,
+                        fontSize: 14.0,
                         fontFamily: 'Poppins',
                         color: Colors.white))),
             TextFormField(
@@ -109,9 +105,7 @@ class LoginForm extends GetView<LoginController> {
                   focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 2)),
                   labelStyle: TextStyle(color: Colors.white),
-                  errorStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: widthSize * errorFormMessage),
+                  errorStyle: TextStyle(color: Colors.red, fontSize: 14.0),
                   prefixIcon: Icon(
                     Icons.lock,
                     size: widthSize * iconFormSize,
@@ -122,17 +116,23 @@ class LoginForm extends GetView<LoginController> {
                 style: TextStyle(
                     color: Colors.white, fontSize: fontSizeTextFormField)),
             SizedBox(height: heightSize * spaceBetweenFieldAndButton),
-            ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                padding: MaterialStateProperty.all(
-                    EdgeInsets.fromLTRB(widthButton, 15, widthButton, 15)),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
               ),
+              color: Colors.white,
+              height: 45.0,
+              minWidth: widthSize,
+              // style: ButtonStyle(
+              //   shape: MaterialStateProperty.all(
+              //     RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(16.0),
+              //     ),
+              //   ),
+              //   padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(
+              //       widthButton, 16.0, widthButton, 16.0)),
+              //   backgroundColor: MaterialStateProperty.all(Colors.white),
+              // ),
               onPressed: () async {
                 if (controller.formKey.currentState!.validate()) {
                   controller.signIn();
@@ -152,11 +152,12 @@ class LoginForm extends GetView<LoginController> {
                 ),
               ),
             ),
-            SizedBox(height: heightSize * 0.01),
+
+            SizedBox(height: 16.0),
             Text(
               'olvidé mi contraseña',
               style: TextStyle(
-                fontSize: widthSize * fontSizeForgotPassword,
+                fontSize: 12.0,
                 fontFamily: 'Poppins',
                 color: Colors.white,
               ),
