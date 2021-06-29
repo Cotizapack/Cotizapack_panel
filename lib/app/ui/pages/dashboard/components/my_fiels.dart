@@ -1,57 +1,44 @@
 import 'package:cotizaweb/app/data/models/MyFiles.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
-import 'package:cotizaweb/app/ui/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'file_info_card.dart';
 
-class MyFiels extends StatelessWidget {
-  const MyFiels({
-    Key? key,
-  }) : super(key: key);
-
+class MyFiels extends GetResponsiveView {
   @override
-  Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
+  Widget? phone() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Mis Datos",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            ElevatedButton.icon(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 1.5,
-                  vertical:
-                      defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                ),
-              ),
-              onPressed: () {},
-              icon: Icon(Icons.add),
-              label: Text("Agregar"),
-            ),
-          ],
-        ),
         SizedBox(height: defaultPadding),
-        Responsive(
-          mobile: FileInfoCardGridView(
-            crossAxisCount: _size.width < 900 ? 2 : 4,
-            childAspectRatio: _size.width < 900 ? 1.3 : 1,
-          ),
-          tablet: FileInfoCardGridView(),
-          desktop: FileInfoCardGridView(
-            childAspectRatio: _size.width < 1200 ? 1.1 : 1.4,
-          ),
+        FileInfoCardGridView(
+          crossAxisCount: screen.width < 900 ? 2 : 4,
+          childAspectRatio: screen.width < 900 ? 1.3 : 1,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget? tablet() {
+    return Column(
+      children: [SizedBox(height: defaultPadding), FileInfoCardGridView()],
+    );
+  }
+
+  @override
+  Widget? desktop() {
+    return Column(
+      children: [
+        SizedBox(height: defaultPadding),
+        FileInfoCardGridView(
+          childAspectRatio: screen.width < 1200 ? 1.1 : 1.4,
         ),
       ],
     );
   }
 }
 
-class FileInfoCardGridView extends StatelessWidget {
+class FileInfoCardGridView extends GetView {
   const FileInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,

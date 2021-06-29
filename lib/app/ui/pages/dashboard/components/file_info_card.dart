@@ -2,6 +2,7 @@ import 'package:cotizaweb/app/data/models/MyFiles.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class FileInfoCard extends StatelessWidget {
   const FileInfoCard({
@@ -76,7 +77,7 @@ class FileInfoCard extends StatelessWidget {
   }
 }
 
-class ProgressLine extends StatelessWidget {
+class ProgressLine extends GetView {
   const ProgressLine({
     Key? key,
     this.color = primaryColor,

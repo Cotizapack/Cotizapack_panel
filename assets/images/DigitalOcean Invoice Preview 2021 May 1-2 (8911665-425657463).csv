@@ -1,5 +1,0 @@
-product,group_description,description,hours,start,end,USD,project_name,category
-Droplets,,GulaEat-Server (s-2vcpu-4gb),416,2021-05-01 00:00:00 +0000,2021-05-18 08:18:52 +0000,$12.38,digitalgulaapp@gmail.com,iaas
-App Platform,gulaeat-panel-2 (basic),gulaeat-panel-2 (1x basic-s),416,2021-05-01 00:00:00 +0000,2021-05-18 08:18:52 +0000,$12.39,,paas
-App Platform,gulaeats (basic),gulaeats (1x basic-xxs),416,2021-05-01 00:00:00 +0000,2021-05-18 08:18:52 +0000,$3.10,,paas
-Database Clusters,gulaeats (basic),Primary Node - Development Database 0.5 GB / 1 vCPU / 1 GB Disk,416,2021-05-01 00:00:00 +0000,2021-05-18 08:18:52 +0000,$4.33,,paas
