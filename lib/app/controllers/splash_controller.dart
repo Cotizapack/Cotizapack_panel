@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/common/get_storage.dart';
 import 'package:cotizaweb/app/data/models/session_model.dart';
@@ -22,6 +23,7 @@ class SplashController extends GetxController {
   void islogin() async {
     try {
       var response = await _userRepository.getSessions();
+      await _userRepository.getTeam();
       if (response != null) {
         if (response.statusCode == 200) {
           _session = Session.fromJson(response.data);
@@ -34,7 +36,7 @@ class SplashController extends GetxController {
           );
         }
       }
-    } catch (e) {
+    } on AppwriteException catch (e) {
       print('Error splash: $e');
       Timer(Duration(seconds: 2), () => Get.offNamed(Routes.LOGIN));
     }
@@ -50,7 +52,6 @@ class SplashController extends GetxController {
         Get.find<GlobalController>().user = value;
 
         MyGetStorage().saveData(key: 'userData', data: value.toJson());
-        print('Awevo, se guardaron los datos bien');
         return true;
       }
     } catch (e) {

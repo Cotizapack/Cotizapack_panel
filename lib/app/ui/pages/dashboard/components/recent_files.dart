@@ -1,9 +1,10 @@
-import 'package:cotizaweb/app/data/models/RecentFile.dart';
+import 'package:cotizaweb/app/controllers/dashboard_controller.dart';
+import 'package:cotizaweb/app/data/models/PackageModel.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:get/state_manager.dart';
 
-class RecentFiles extends StatelessWidget {
+class RecentFiles extends GetView<DashboardController> {
   const RecentFiles({
     Key? key,
   }) : super(key: key);
@@ -20,28 +21,31 @@ class RecentFiles extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Files",
+            "Ventas Recientes",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
             width: double.infinity,
-            child: DataTable(
-              horizontalMargin: 0,
-              columnSpacing: defaultPadding,
-              columns: [
-                DataColumn(
-                  label: Text("File Name"),
+            child: Obx(
+              () => DataTable(
+                horizontalMargin: 0,
+                columnSpacing: defaultPadding,
+                columns: [
+                  DataColumn(
+                    label: Text("Paquete"),
+                  ),
+                  DataColumn(
+                    label: Text("Precio"),
+                  ),
+                  DataColumn(
+                    label: Text("Cotizaciones"),
+                  ),
+                ],
+                rows: List.generate(
+                  controller.globalController.package.length,
+                  (index) => recentFileDataRow(
+                      controller.globalController.package[index]),
                 ),
-                DataColumn(
-                  label: Text("Date"),
-                ),
-                DataColumn(
-                  label: Text("Size"),
-                ),
-              ],
-              rows: List.generate(
-                demoRecentFiles.length,
-                (index) => recentFileDataRow(demoRecentFiles[index]),
               ),
             ),
           ),
@@ -51,26 +55,12 @@ class RecentFiles extends StatelessWidget {
   }
 }
 
-DataRow recentFileDataRow(RecentFile fileInfo) {
+DataRow recentFileDataRow(Packageclass package) {
   return DataRow(
     cells: [
-      DataCell(
-        Row(
-          children: [
-            SvgPicture.asset(
-              fileInfo.icon!,
-              height: 30,
-              width: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.title!),
-            ),
-          ],
-        ),
-      ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(package.name!)),
+      DataCell(Text(package.price!.toDouble().toStringAsFixed(2))),
+      DataCell(Text(package.quotations!.toString())),
     ],
   );
 }

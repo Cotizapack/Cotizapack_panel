@@ -12,21 +12,36 @@ class LoginForm extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Form(
       key: controller.formKey,
+      autovalidateMode: AutovalidateMode.always,
       child: Column(
         children: <Widget>[
           InputText(
-            name: 'Email',
+            name: 'Correo electronico',
             textInputType: TextInputType.name,
             validator: Validators.emailValidator,
             prefixIcon: Icon(LineIcons.editAlt),
             onChanged: (val) => controller.user.email = val,
           ),
-          InputText(
-            name: 'Password',
-            textInputType: TextInputType.name,
-            validator: Validators.passwordValidator,
-            prefixIcon: Icon(LineIcons.editAlt),
-            onChanged: (val) => controller.user.password = val,
+          Obx(
+            () => InputText(
+              name: 'Contraseña',
+              textInputType: TextInputType.name,
+              validator: Validators.passwordValidator,
+              prefixIcon: Icon(LineIcons.editAlt),
+              onChanged: (val) => controller.user.password = val,
+              obscureText: controller.viewPass.value,
+              maxLines: 1,
+              suffixIcon: Material(
+                borderRadius: BorderRadius.circular(50),
+                child: IconButton(
+                  splashRadius: 15,
+                  icon: controller.viewPass.value
+                      ? Icon(LineIcons.eye)
+                      : Icon(LineIcons.eyeSlash),
+                  onPressed: controller.viewPass.toggle,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(30.0),

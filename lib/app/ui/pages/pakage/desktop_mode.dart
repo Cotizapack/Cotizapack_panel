@@ -30,36 +30,51 @@ class Desktoscreen extends GetView<PackagesController> {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'Mis Paquetes',
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 24.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Mis Paquetes',
+                                  style: TextStyle(
+                                      color: Colors.white70, fontSize: 24.0),
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: Padding(
-                              padding: const EdgeInsets.all(defaultPadding * 2),
-                              child: TablePackages(data: data!),
-                            ),
-                          )
-                        ],
+                            Expanded(
+                              flex: 6,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(defaultPadding * 2),
+                                child: TablePackages(data: data!),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     VerticalDivider(),
                     Expanded(
                       flex: 1,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(defaultPadding),
-                          child: PackageForm(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(defaultPadding),
+                            child: PackageForm(),
+                          ),
                         ),
                       ),
                     ),

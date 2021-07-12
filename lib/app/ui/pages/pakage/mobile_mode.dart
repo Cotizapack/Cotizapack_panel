@@ -28,59 +28,62 @@ class Movilcreen extends GetView<PackagesController> {
             SizedBox(height: defaultPadding),
             Expanded(
               child: controller.obx(
-                (data) => SingleChildScrollView(
-                  child: Obx(
-                    () => Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        controller.onMovil.value
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  color: secondaryColor,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
+                (data) => Container(
+                  child: SingleChildScrollView(
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          controller.onMovil.value
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    color: secondaryColor,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                  ),
+                                  padding: EdgeInsets.all(defaultPadding),
+                                  child: SingleChildScrollView(
+                                    child: PackageForm(),
+                                  ),
+                                )
+                              : ButtonCuston(
+                                  text: "Agregar",
+                                  icon: Icon(Icons.add),
+                                  funtion: () =>
+                                      controller.onMovil.value = true,
                                 ),
-                                padding: EdgeInsets.all(defaultPadding),
-                                child: SingleChildScrollView(
-                                  child: PackageForm(),
+                          Divider(),
+                          Container(
+                            padding: EdgeInsets.all(defaultPadding),
+                            decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Mis Paquetes',
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 24.0),
+                                  ),
                                 ),
-                              )
-                            : ButtonCuston(
-                                text: "Agregar",
-                                icon: Icon(Icons.add),
-                                funtion: () => controller.onMovil.value = true,
-                              ),
-                        Divider(),
-                        Container(
-                          padding: EdgeInsets.all(defaultPadding),
-                          decoration: BoxDecoration(
-                            color: secondaryColor,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.all(defaultPadding * 2),
+                                  child: TablePackages(
+                                    data: data!,
+                                    movil: true,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Mis Paquetes',
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 24.0),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.all(defaultPadding * 2),
-                                child: TablePackages(
-                                  data: data!,
-                                  movil: true,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

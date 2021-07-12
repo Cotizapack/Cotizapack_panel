@@ -60,6 +60,7 @@ class BannerController extends GetxController
     try {
       change(null, status: RxStatus.loading());
       mybanners.getallMyBanner().then((value) {
+        if (value!.isEmpty) return change(null, status: RxStatus.empty());
         change(value, status: RxStatus.success());
       }).onError((error, stackTrace) {
         change(null, status: RxStatus.error("Error: $error"));

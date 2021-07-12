@@ -11,7 +11,6 @@ class MyGetStorage {
   final box = GetStorage();
 
   Future<void> saveData({required String key, required var data}) async {
-    print('saved');
     return box.write(key, data);
   }
 
@@ -21,7 +20,6 @@ class MyGetStorage {
   }
 
   bool haveData({required String key}) {
-    print(box.read(key));
     return box.hasData(key);
   }
 
@@ -46,7 +44,6 @@ class MyGetStorage {
     try {
       if (box.hasData('userData')) {
         _userData = UserData.fromJson(box.read("userData"));
-        print('local db has user data: ${_userData.ceoName}');
         Get.find<GlobalController>().user = _userData;
         return _userData;
       } else {

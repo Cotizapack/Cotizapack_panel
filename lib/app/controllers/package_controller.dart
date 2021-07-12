@@ -67,7 +67,6 @@ class PackagesController extends GetxController
         change(null, status: RxStatus.error("Error: $error"));
       });
     } catch (e) {
-      print("$e");
       change(null, status: RxStatus.error("Error: $e"));
     } finally {
       limpiar();
@@ -122,12 +121,13 @@ class PackagesController extends GetxController
     try {
       sendData.value = true;
       update(['formUpload']);
+
       packages.updatedAt = DateTime.now().millisecondsSinceEpoch;
+      packages.onSale = onsale.value;
       var data = IsolateparamPackage(
           package: packages, image: image, filename: fileName);
       var result = await compute<IsolateparamPackage, List<Packageclass>?>(
           myPackage.updatePackages, data);
-
       sendData.value = false;
       if (result == null)
         return MyAlert.showMyDialog(

@@ -1,12 +1,12 @@
+import 'package:cotizaweb/app/controllers/dashboard_controller.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'components/header.dart';
 import 'components/my_fiels.dart';
 import 'components/recent_files.dart';
-import 'components/storage_details.dart';
 
-class DashboardScreen extends GetResponsiveView {
+class DashboardScreen extends GetResponsiveView<DashboardController> {
   @override
   Widget? phone() {
     return SafeArea(
@@ -26,11 +26,12 @@ class DashboardScreen extends GetResponsiveView {
                   flex: 5,
                   child: Column(
                     children: [
-                      MyFiels(),
+                      Container(
+                        child: MyFiels(),
+                        width: double.infinity,
+                      ),
                       SizedBox(height: defaultPadding),
                       RecentFiles(),
-                      SizedBox(height: defaultPadding),
-                      StarageDetails(),
                     ],
                   ),
                 ),
@@ -61,11 +62,12 @@ class DashboardScreen extends GetResponsiveView {
                   flex: 5,
                   child: Column(
                     children: [
-                      MyFiels(),
+                      Container(
+                        child: MyFiels(),
+                        width: double.infinity,
+                      ),
                       SizedBox(height: defaultPadding),
                       RecentFiles(),
-                      SizedBox(height: defaultPadding),
-                      StarageDetails(),
                     ],
                   ),
                 ),
@@ -93,7 +95,6 @@ class DashboardScreen extends GetResponsiveView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 5,
                   child: Column(
                     children: [
                       MyFiels(),
@@ -101,13 +102,6 @@ class DashboardScreen extends GetResponsiveView {
                       RecentFiles(),
                     ],
                   ),
-                ),
-                SizedBox(width: defaultPadding),
-                // On Mobile means if the screen is less than 850 we dont want to show it
-                VerticalDivider(),
-                Expanded(
-                  flex: 2,
-                  child: StarageDetails(),
                 ),
               ],
             )

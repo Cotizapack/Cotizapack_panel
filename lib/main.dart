@@ -7,11 +7,13 @@ import 'app/controllers/MenuController.dart';
 import 'app/controllers/global_Controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/ui/theme/theme_dark.dart';
+import 'configure_nonweb.dart' if (dart.library.html) 'configure_web.dart';
 
 void main() {
   Get.put(GlobalController());
   Get.put(MenuController());
   initializeDateFormatting('es_US');
+  configureApp();
   runApp(MyApp());
 }
 

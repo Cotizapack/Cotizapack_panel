@@ -18,4 +18,7 @@ abstract class Routes {
 
   ///Ruta no encontrada
   static const NOTFOUND = '/notfound';
+
+  ///resetear contrsaeña de los usuarios de la app movil.
+  static const PASSWORDRESET = '/auth/recovery/reset';
 }

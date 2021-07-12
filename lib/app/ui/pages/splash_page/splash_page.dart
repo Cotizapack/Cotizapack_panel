@@ -10,7 +10,7 @@ class SplashPage extends GetView<SplashController> {
       body: new SafeArea(
         child: new Center(
           child: TweenAnimationBuilder(
-            duration: const Duration(),
+            duration: const Duration(seconds: 2),
             tween: Tween<double>(begin: 0.0, end: 1.0),
             builder: (_, double value, Widget? child) {
               return Transform.scale(

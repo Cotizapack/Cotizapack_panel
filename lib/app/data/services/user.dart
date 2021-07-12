@@ -33,13 +33,30 @@ class UserRepository {
 
   Future<Response?> signIn({required UserModel user}) async {
     Account account = Account(AppwriteSettings.initAppwrite());
+
     try {
       Response response = await account.createSession(
           email: user.email.toString(), password: user.password.toString());
+
       return response;
     } on AppwriteException catch (e) {
       printError(
         info: 'Error: ${e.message}',
+      );
+      throw e;
+    }
+  }
+
+  Future<Response?> getTeam() async {
+    Teams teams = Teams(AppwriteSettings.initAppwrite());
+    try {
+      Response response = await teams.getMemberships(
+        teamId: Collections.TEAMADMINID,
+      );
+      return response;
+    } on AppwriteException catch (e) {
+      printError(
+        info: 'Error team: ${e.message}',
       );
       throw e;
     }
@@ -78,10 +95,6 @@ class UserRepository {
           title: 'Sesión caducada',
           message: 'Tu actual sesión está caducada, inicia sesión de nuevo',
           color: Colors.red);
-      // Timer(
-      //     Duration(seconds: 2),
-      //     () => getImport.Get.off(SplashPage(),
-      //         transition: getImport.Transition.zoom));
       return null;
     }
   }
@@ -90,18 +103,10 @@ class UserRepository {
     try {
       database = Database(AppwriteSettings.initAppwrite());
       Response response = await database.createDocument(
-          collectionId: userCollectionID, data: data,
-          /*data:{
-            "logo" : "logotiupo mi ciela",
-            "ceoName": "ceoName",
-            "businessName" : "logbusinessName",
-            "phone": "phone",
-            "address" : "address mi ciela",
-            "nickName": "nickName",
-            "userID": sesionData.userId
-            "category": 
-          },*/
-          read: ["*"], write: ["user:${data["userID"]}"]);
+          collectionId: userCollectionID,
+          data: data,
+          read: ["*"],
+          write: ["user:${data["userID"]}"]);
       userData = UserData.fromJson(response.data);
       return userData;
     } catch (e) {
@@ -140,6 +145,27 @@ class UserRepository {
     } catch (e) {
       print('Error charge Data $e');
       return userData;
+    }
+  }
+
+  Future<bool> changePassword(
+      {required String userID,
+      required String secret,
+      required String password,
+      required String passwordagain}) async {
+    try {
+      var account = Account(AppwriteSettings.initAppwrite());
+      Response response = await account.updateRecovery(
+        userId: userID,
+        secret: secret,
+        password: password,
+        passwordAgain: passwordagain,
+      );
+
+      return response.statusCode == 200 ? true : false;
+    } on AppwriteException catch (e) {
+      print('Error cange password ${e.message}');
+      return false;
     }
   }
 }

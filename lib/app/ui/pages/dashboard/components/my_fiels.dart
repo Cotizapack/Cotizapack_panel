@@ -1,7 +1,7 @@
-import 'package:cotizaweb/app/data/models/MyFiles.dart';
+import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'file_info_card.dart';
 
 class MyFiels extends GetResponsiveView {
@@ -38,7 +38,7 @@ class MyFiels extends GetResponsiveView {
   }
 }
 
-class FileInfoCardGridView extends GetView {
+class FileInfoCardGridView extends GetView<GlobalController> {
   const FileInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,
@@ -50,17 +50,21 @@ class FileInfoCardGridView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: demoMyFiels.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: childAspectRatio,
+    return Obx(
+      () => GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: controller.datacardDashboard.length,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisExtent: 200,
+          maxCrossAxisExtent: 300,
+          crossAxisSpacing: defaultPadding,
+          mainAxisSpacing: defaultPadding,
+          childAspectRatio: childAspectRatio,
+        ),
+        itemBuilder: (context, index) =>
+            FileInfoCard(info: controller.datacardDashboard[index]),
       ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiels[index]),
     );
   }
 }

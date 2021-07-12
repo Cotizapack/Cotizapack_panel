@@ -7,6 +7,7 @@ class InputText extends GetView {
   final int? maxLines;
   final int? minLines;
   final Widget prefixIcon;
+  final Widget? suffixIcon;
   final bool? obscureText;
   final String? initialValue;
   final TextInputType textInputType;
@@ -23,6 +24,7 @@ class InputText extends GetView {
       required this.textInputType,
       this.obscureText,
       this.validator,
+      this.suffixIcon,
       this.autofillHints,
       this.controller,
       this.maxLines,
@@ -67,6 +69,7 @@ class InputText extends GetView {
             filled: true,
             fillColor: secondaryColor,
             hintText: name,
+            suffixIcon: suffixIcon,
             hintStyle: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
             prefixIcon: Padding(

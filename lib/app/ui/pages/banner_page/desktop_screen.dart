@@ -74,6 +74,8 @@ class Desktoscreen extends GetView<BannerController> {
                     ),
                   ],
                 ),
+                onEmpty: Text('No hay Baneres'),
+                onError: (error) => Text('$error'),
               ),
             ),
           ],

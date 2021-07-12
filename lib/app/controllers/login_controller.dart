@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/data/common/alert.dart';
-import 'package:cotizaweb/app/data/common/get_storage.dart';
 import 'package:cotizaweb/app/data/models/user_model.dart';
 import 'package:cotizaweb/app/data/services/user.dart';
 import 'package:cotizaweb/app/routes/app_pages.dart';
@@ -20,7 +19,7 @@ class LoginController extends GetxController with StateMixin {
   UserRepository _userRepository = UserRepository();
 
   UserModel user = UserModel();
-  RxBool viewPass = false.obs;
+  RxBool viewPass = true.obs;
 
   void signIn() async {
     try {
@@ -34,10 +33,10 @@ class LoginController extends GetxController with StateMixin {
               color: Colors.red);
           return;
         }
+        await _userRepository.getTeam();
+
         if (value.statusCode! >= 200 && value.statusCode! <= 299) {
           change(null, status: RxStatus.success());
-          var a = MyGetStorage().readData(key: 'userData');
-          print(a);
           MyAlert.showMyDialog(
               title: '¡Bienvenid@!',
               message: 'estamos cargando tus datos',
@@ -47,6 +46,7 @@ class LoginController extends GetxController with StateMixin {
         }
       }).catchError((e) {
         var error = e as AppwriteException;
+        _userRepository.logout();
         if (error.code == 401) {
           MyAlert.showMyDialog(
               title: 'Credenciales incorrectas',
@@ -58,14 +58,19 @@ class LoginController extends GetxController with StateMixin {
           // });
           return;
         }
-        print(error.message);
+        if (error.code == 404) {
+          MyAlert.showMyDialog(
+              title: 'Permiso',
+              message: 'No Tiene Permitido iniciar Seisión',
+              color: Colors.red);
+          return;
+        }
         MyAlert.showMyDialog(
             title: 'Error',
             message: 'por favor, intenta de nuevo',
             color: Colors.red);
       });
     } on AppwriteException catch (e) {
-      print('Error ${e.message}');
       change(null, status: RxStatus.error('Error: $e'));
     }
   }
