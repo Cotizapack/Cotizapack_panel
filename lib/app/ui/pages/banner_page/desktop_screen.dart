@@ -26,56 +26,56 @@ class Desktoscreen extends GetView<BannerController> {
             ),
             SizedBox(height: defaultPadding),
             Expanded(
-              child: controller.obx(
-                (data) => Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: defaultPadding),
-                              child: Text(
-                                'Mis Banners',
-                                style: Get.theme.textTheme.headline6,
-                              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: secondaryColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: defaultPadding),
+                            child: Text(
+                              'Mis Banners',
+                              style: Get.theme.textTheme.headline6,
                             ),
-                            Expanded(
+                          ),
+                          controller.obx(
+                            (data) => Expanded(
                               child: TableBanners(
                                 data: data!,
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                            onEmpty: Text('No hay Baneres'),
+                            onError: (error) => Text('$error'),
+                          )
+                        ],
                       ),
                     ),
-                    VerticalDivider(),
-                    Expanded(
-                      child: Container(
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: EdgeInsets.all(defaultPadding),
-                        child: SingleChildScrollView(
-                          child: FormUploadBanner(),
-                        ),
+                  ),
+                  VerticalDivider(),
+                  Expanded(
+                    child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: secondaryColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                      ),
+                      padding: EdgeInsets.all(defaultPadding),
+                      child: SingleChildScrollView(
+                        child: FormUploadBanner(),
                       ),
                     ),
-                  ],
-                ),
-                onEmpty: Text('No hay Baneres'),
-                onError: (error) => Text('$error'),
+                  ),
+                ],
               ),
             ),
           ],

@@ -23,7 +23,7 @@ class BannerServices {
       return banners;
     } on AppwriteException catch (e) {
       print('Error: ${e.message}');
-      return null;
+      throw e;
     }
   }
 
@@ -52,7 +52,7 @@ class BannerServices {
       return null;
     } on AppwriteException catch (e) {
       print('Error: ${e.message}');
-      return null;
+      throw e;
     }
   }
 
@@ -77,7 +77,7 @@ class BannerServices {
       return null;
     } on AppwriteException catch (e) {
       print('Error: ${e.message}');
-      return null;
+      throw e;
     }
   }
 
@@ -100,7 +100,7 @@ class BannerServices {
       return null;
     } on AppwriteException catch (e) {
       print('Error: ${e.message}');
-      return null;
+      throw e;
     }
   }
 }
