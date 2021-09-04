@@ -61,7 +61,7 @@ class CategoryUsersController extends GetxController
       if (result == null)
         return MyAlert.showMyDialog(
           title: 'Error',
-          message: 'Error al subir la Imagen',
+          message: 'Error al guardar',
           color: Colors.red.withOpacity(0.8),
         );
       MyAlert.showMyDialog(
@@ -82,7 +82,119 @@ class CategoryUsersController extends GetxController
     }
   }
 
+  /* ----------------------- Actualizar en la base de datos ---------------------- */
+  updateUserCategory() async {
+    try {
+      sendData.value = true;
+      var result = await categoryUserServices.updateCategoryUser(userCategory);
+      sendData.value = false;
+      if (result == null)
+        return MyAlert.showMyDialog(
+          title: 'Error',
+          message: 'Error al actualizar la categoria',
+          color: Colors.red.withOpacity(0.8),
+        );
+      MyAlert.showMyDialog(
+        title: 'Exito',
+        message: 'Actualizacion Exitoso.',
+        color: Colors.green.withOpacity(0.8),
+      );
+      change(result, status: RxStatus.success());
+      limpiar();
+    } catch (e) {
+      change(null, status: RxStatus.error("Error: $e"));
+    } finally {
+      limpiar();
+    }
+  }
 
+  /* ------------- borrar Package de la base de datos con la imagen ------------ */
+  deletePackage(UserCategory userCategory) {
+    try {
+      Get.defaultDialog(
+        title: "Eliminar Categoria",
+        content: Column(
+          children: [
+            Text(
+              "Se Eliminar la Categoria ${userCategory.name}",
+              maxLines: 2,
+            ),
+            Text("¿Esta Seguro?"),
+          ],
+        ),
+        cancel: TextButton(
+          style: TextButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: Get.theme.accentColor,
+                    width: 2,
+                    style: BorderStyle.solid),
+                borderRadius: BorderRadius.circular(100)),
+          ),
+          onPressed: () {
+            Get.back();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Cancelar",
+              style: TextStyle(color: Get.theme.accentColor),
+            ),
+          ),
+        ),
+        confirm: TextButton(
+            style: TextButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Ok",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+            onPressed: () async {
+              Get.back();
+              deletePackageConfirmado(userCategory);
+            }),
+      );
+    } catch (e) {
+      MyAlert.showMyDialog(
+        title: 'Error',
+        message: 'Error: $e',
+        color: Colors.red.withOpacity(0.8),
+      );
+    } finally {
+      limpiar();
+    }
+  }
+
+  deletePackageConfirmado(UserCategory userCategory) async {
+    try {
+      var result = await categoryUserServices.deteleCategoryUser(userCategory);
+      if (result == null)
+        return MyAlert.showMyDialog(
+          title: 'Error',
+          message: 'Error al Eliminar la categoria',
+          color: Colors.red.withOpacity(0.8),
+        );
+      MyAlert.showMyDialog(
+        title: 'Exito',
+        message: 'Eliminacion Exitosa.',
+        color: Colors.green.withOpacity(0.8),
+      );
+      change(result, status: RxStatus.success());
+      limpiar();
+    } catch (e) {} finally {
+      limpiar();
+    }
+  }
   /* ---------------------------- Limpiar los datos --------------------------- */
   limpiar() {
     sendData.value = false;
