@@ -16,18 +16,18 @@ class UserCategoryList{
 
 class UserCategory {
     UserCategory({
-      required  this.id,
-      required  this.collection,
-      required  this.name,
-      required  this.description,
-      required  this.enable,
+        this.id,
+        this.collection,
+        this.name,
+        this.description,
+        this.enable,
     });
 
-    String id = "";
-    String collection  = "";
-    String name  = "Seleccionar categoría";
-    String description  = "La categoría determinará tu sector";
-    bool enable = true;
+    String? id = "";
+    String? collection  = "";
+    String? name  = "Seleccionar categoría";
+    String? description  = "La categoría determinará tu sector";
+    bool? enable = true;
 
     factory UserCategory.fromJson(Map<String, dynamic> json) => UserCategory(
         id: json["\u0024id"],
