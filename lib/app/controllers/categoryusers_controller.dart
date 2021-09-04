@@ -1,4 +1,5 @@
 
+import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
 import 'package:cotizaweb/app/data/services/categoryuser.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ class CategoryUsersController extends GetxController
   UserCategory userCategory = UserCategory();
   late DropzoneViewController controllerFile;
   final CategoryUserServices categoryUserServices; 
-  RxBool hoverFile = false.obs;
   RxBool sendData = false.obs;
   RxBool onsale = false.obs;
 
@@ -52,11 +52,40 @@ class CategoryUsersController extends GetxController
     }
   }
 
+  /* ----------------------- Guardar en la base de datos ---------------------- */
+  saveUserCategory() async {
+    try {
+      sendData.value = true;
+      var result = await categoryUserServices.saveCategoryUser(userCategory);
+      sendData.value = false;
+      if (result == null)
+        return MyAlert.showMyDialog(
+          title: 'Error',
+          message: 'Error al subir la Imagen',
+          color: Colors.red.withOpacity(0.8),
+        );
+      MyAlert.showMyDialog(
+        title: 'Exito',
+        message: 'Registro Exitoso.',
+        color: Colors.green.withOpacity(0.8),
+      );
+
+      change(result, status: RxStatus.success());
+    } catch (e) {
+      MyAlert.showMyDialog(
+        title: 'Error',
+        message: 'Error: $e',
+        color: Colors.red.withOpacity(0.8),
+      );
+    } finally {
+      limpiar();
+    }
+  }
+
 
   /* ---------------------------- Limpiar los datos --------------------------- */
   limpiar() {
     sendData.value = false;
-    hoverFile.value = false;
     editar = false;
     userCategory = UserCategory();
     onMovil.value = false;

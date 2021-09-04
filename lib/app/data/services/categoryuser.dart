@@ -1,7 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
-import 'package:cotizaweb/app/data/models/isolateModelPackage.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 import 'dart:async';
 import 'dart:core';
@@ -26,12 +25,12 @@ class CategoryUserServices {
     }
   }
 
-  Future<List<UserCategory>?> saveCategoryUser(IsolateparamPackage data) async {
+  Future<List<UserCategory>?> saveCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
       Response res = await _database.createDocument(
         collectionId: collectionID,
-        data: data.package!.toMap(),
+        data: data.toJson(),
         read: ['*'],
         write: ['*'],
       );
@@ -43,13 +42,13 @@ class CategoryUserServices {
     }
   }
 
-  Future<List<UserCategory>?> updateCategoryUser(IsolateparamPackage data) async {
+  Future<List<UserCategory>?> updateCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
       Response res = await _database.updateDocument(
         collectionId: collectionID,
-        documentId: data.package!.id!,
-        data: data.package!.toMap(),
+        documentId: data.id!,
+        data: data.toJson(),
         read: ['*'],
         write: ['*'],
       );
@@ -61,12 +60,12 @@ class CategoryUserServices {
     }
   }
 
-  Future<List<UserCategory>?> deteleCategoryUser(IsolateparamPackage data) async {
+  Future<List<UserCategory>?> deteleCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
       Response res = await _database.deleteDocument(
         collectionId: collectionID,
-        documentId: data.package!.id!,
+        documentId: data.id!,
       );
       if (res.statusCode! >= 200 && res.statusCode! <= 299)
         return getCategoryUser();
