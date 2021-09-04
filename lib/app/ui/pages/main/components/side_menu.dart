@@ -38,7 +38,14 @@ class SideMenu extends GetView {
               title: "Paquetes",
               svgSrc: "assets/icons/menu_task.svg",
               press: () {
-                Get.offNamed(Routes.PackageS);
+                Get.offNamed(Routes.PACKAGES);
+              },
+            ),
+            DrawerListTile(
+              title: "Categorias",
+              svgSrc: "assets/icons/menu_profile.svg",
+              press: () {
+                Get.offNamed(Routes.CATEGORYUSER);
               },
             ),
           ],

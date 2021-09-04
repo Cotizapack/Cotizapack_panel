@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:appwrite/appwrite.dart';
+import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
@@ -9,6 +10,7 @@ import 'package:cotizaweb/app/data/models/user_model.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getImport;
+import 'package:get/state_manager.dart';
 
 class UserRepository {
   UserCategory userCategory = UserCategory(

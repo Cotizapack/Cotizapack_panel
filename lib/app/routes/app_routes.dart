@@ -14,7 +14,10 @@ abstract class Routes {
   static const BANNERS = '/banners';
 
   ///Ruta Paketes
-  static const PackageS = '/Packages';
+  static const PACKAGES = '/packages';
+
+  ///Ruta Paketes
+  static const CATEGORYUSER = '/category/user';
 
   ///Ruta no encontrada
   static const NOTFOUND = '/notfound';

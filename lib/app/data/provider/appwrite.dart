@@ -10,6 +10,7 @@ class AppwriteSettings {
     Client client = Client();
     client
         .setEndpoint('$endPoint') // Your Appwrite Endpoint
+        .setSelfSigned(status: true)
         .setProject('$projectID'); // Your project ID
 
     return client;

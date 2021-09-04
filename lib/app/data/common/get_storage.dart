@@ -49,6 +49,7 @@ class MyGetStorage {
       } else {
         var resultSession = await UserRepository().getSessions();
         _mySession = Session.fromJson(resultSession!.data);
+        Get.find<GlobalController>().session = _mySession;
         Get.find<GlobalController>().user = _userData;
         _userData =
             await UserRepository().chargeUserData(userID: _mySession.userId!);
