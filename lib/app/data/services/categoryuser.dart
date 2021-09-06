@@ -15,6 +15,7 @@ class CategoryUserServices {
       Response res = await _database.listDocuments(
         collectionId: collectionID,
       );
+      print(res.data["documents"]);
       List<UserCategory> list = (res.data["documents"])
           .map<UserCategory>((value) => UserCategory.fromJson(value))
           .toList();

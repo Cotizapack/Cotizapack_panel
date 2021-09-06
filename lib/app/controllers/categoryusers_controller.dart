@@ -1,4 +1,3 @@
-
 import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
 import 'package:cotizaweb/app/data/services/categoryuser.dart';
@@ -7,24 +6,24 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:get/get.dart';
 
 class CategoryUsersController extends GetxController
-   with StateMixin<List<UserCategory>> {
+    with StateMixin<List<UserCategory>> {
   UserCategory userCategory = UserCategory();
   late DropzoneViewController controllerFile;
-  final CategoryUserServices categoryUserServices; 
+  final CategoryUserServices categoryUserServices;
   RxBool sendData = false.obs;
-  RxBool onsale = false.obs;
+  RxBool enabled = false.obs;
 
   String fileName = '';
   List<int> image = <int>[];
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool editar = false;
+  RxBool editar = false.obs;
   bool onEdit = false;
   RxBool onMovil = false.obs;
 
   /* -------------------------- controladores Texbox -------------------------- */
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  /* -------------------------- controladores Texbox -------------------------- */ 
+  /* -------------------------- controladores Texbox -------------------------- */
 
   CategoryUsersController({required this.categoryUserServices});
 
@@ -195,16 +194,23 @@ class CategoryUsersController extends GetxController
       limpiar();
     }
   }
+
   /* ---------------------------- Limpiar los datos --------------------------- */
   limpiar() {
     sendData.value = false;
-    editar = false;
+    editar.value = false;
     userCategory = UserCategory();
     onMovil.value = false;
     nameController.clear();
     descriptionController.clear();
   }
-
   /* ---------------------------- fin eliminar data --------------------------- */
+
+  setdataEdit(UserCategory userCategory) {
+    this.userCategory = userCategory;
+    nameController.text = userCategory.name!;
+    descriptionController.text = userCategory.description!;
+    this.enabled.value = userCategory.enable!;
+    editar.value = true;
+  }
 }
-  

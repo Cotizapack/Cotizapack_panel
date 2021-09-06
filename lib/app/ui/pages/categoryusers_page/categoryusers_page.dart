@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/categoryusers_controller.dart';
+import 'desktop_mode.dart';
+import 'mobile_mode.dart';
 
-class CategoryUsersPage extends GetView<CategoryUsersController> {
+class CategoryUsersPage extends GetResponsiveView<CategoryUsersController> {
+  Widget? phone() {
+    return Movilcreen(screen: screen);
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Text('CategoryUsersController'),
-    );
+  Widget desktop() {
+    return Desktoscreen(screen: screen);
   }
 }
