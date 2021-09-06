@@ -14,6 +14,8 @@ class CategoryUserServices {
     try {
       Response res = await _database.listDocuments(
         collectionId: collectionID,
+        orderType: OrderType.asc,
+        orderField: 'name',
       );
       print(res.data["documents"]);
       List<UserCategory> list = (res.data["documents"])
