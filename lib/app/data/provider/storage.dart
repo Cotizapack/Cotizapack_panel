@@ -1,17 +1,19 @@
 import 'dart:typed_data';
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 
 class MyStorage {
   Client client = Client();
   late Storage storage;
 
-  Future<Response?> postFile(
+  Future<File?> postFile(
       {required List<int> image, required String filename}) async {
     try {
       storage = Storage(AppwriteSettings.initAppwrite());
-      Response result = await storage.createFile(
+      File result = await storage.createFile(
         file: MultipartFile.fromBytes(
+          "file",
           image,
           filename: filename,
         ),
@@ -19,18 +21,16 @@ class MyStorage {
         write: ["*"],
       );
       return result;
-    } catch (e) {
-      print('Error storage: $e.message');
+    } on AppwriteException catch (e) {
+      print('Error storage: ${e.message}');
       return null;
     }
   }
 
-  Future<Response?> deleteFile({required String fileId}) async {
+  Future<dynamic> deleteFile({required String fileId}) async {
     try {
       storage = Storage(AppwriteSettings.initAppwrite());
-      Response res = await storage.deleteFile(fileId: fileId);
-      print('Error update Storage');
-      return res;
+      return storage.deleteFile(fileId: fileId);
     } on AppwriteException catch (e) {
       print('Error delete File: ${e.message}');
       return null;
@@ -41,7 +41,7 @@ class MyStorage {
     try {
       storage = Storage(AppwriteSettings.initAppwrite());
       var res = await storage.getFilePreview(fileId: fileId, quality: 1);
-      return res.data;
+      return res;
     } on AppwriteException catch (e) {
       print('Error get File: ${e.message}');
       return null;

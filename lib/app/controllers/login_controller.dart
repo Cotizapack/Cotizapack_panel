@@ -35,7 +35,7 @@ class LoginController extends GetxController with StateMixin {
         }
         await _userRepository.getTeam();
 
-        if (value.statusCode! >= 200 && value.statusCode! <= 299) {
+        if (value.current) {
           change(null, status: RxStatus.success());
           MyAlert.showMyDialog(
               title: '¡Bienvenid@!',
@@ -71,7 +71,7 @@ class LoginController extends GetxController with StateMixin {
             color: Colors.red);
       });
     } on AppwriteException catch (e) {
-      change(null, status: RxStatus.error('Error: $e'));
+      change(null, status: RxStatus.error('Error: ${e.message}'));
     }
   }
 }

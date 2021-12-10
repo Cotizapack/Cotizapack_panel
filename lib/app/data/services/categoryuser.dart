@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
@@ -12,14 +13,13 @@ class CategoryUserServices {
   Future<List<UserCategory>?> getCategoryUser() async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
-      Response res = await _database.listDocuments(
+      DocumentList res = await _database.listDocuments(
         collectionId: collectionID,
-        orderType: OrderType.asc,
+        orderType: "ASC",
         orderField: 'name',
       );
-      print(res.data["documents"]);
-      List<UserCategory> list = (res.data["documents"])
-          .map<UserCategory>((value) => UserCategory.fromJson(value))
+      List<UserCategory> list = (res.documents)
+          .map<UserCategory>((value) => UserCategory.fromJson(value.data))
           .toList();
       return list;
     } on AppwriteException catch (e) {
@@ -31,14 +31,13 @@ class CategoryUserServices {
   Future<List<UserCategory>?> saveCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
-      Response res = await _database.createDocument(
+      Document res = await _database.createDocument(
         collectionId: collectionID,
         data: data.toJson(),
         read: ['*'],
         write: ['*'],
       );
-      if (res.statusCode! >= 200 && res.statusCode! <= 299)
-        return getCategoryUser();
+      if (res.data.isNotEmpty) return getCategoryUser();
     } on AppwriteException catch (e) {
       print('Error create CategoryUser ${e.message}');
       throw e;
@@ -48,15 +47,14 @@ class CategoryUserServices {
   Future<List<UserCategory>?> updateCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
-      Response res = await _database.updateDocument(
+      Document res = await _database.updateDocument(
         collectionId: collectionID,
         documentId: data.id!,
         data: data.toJson(),
         read: ['*'],
         write: ['*'],
       );
-      if (res.statusCode! >= 200 && res.statusCode! <= 299)
-        return getCategoryUser();
+      if (res.data.isNotEmpty) return getCategoryUser();
     } on AppwriteException catch (e) {
       print('Error update CategoryUser ${e.message}');
       throw e;
@@ -66,12 +64,11 @@ class CategoryUserServices {
   Future<List<UserCategory>?> deteleCategoryUser(UserCategory data) async {
     _database = Database(AppwriteSettings.initAppwrite());
     try {
-      Response res = await _database.deleteDocument(
+      await _database.deleteDocument(
         collectionId: collectionID,
         documentId: data.id!,
       );
-      if (res.statusCode! >= 200 && res.statusCode! <= 299)
-        return getCategoryUser();
+      return getCategoryUser();
     } on AppwriteException catch (e) {
       print('Error delete CategoryUser ${e.message}');
       throw e;

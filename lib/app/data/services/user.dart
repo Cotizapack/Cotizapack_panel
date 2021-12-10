@@ -1,29 +1,27 @@
 import 'dart:async';
 import 'package:appwrite/appwrite.dart';
-import 'package:cotizaweb/app/controllers/global_Controller.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/common/alert.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
-import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
 import 'package:cotizaweb/app/data/models/user_model.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getImport;
-import 'package:get/state_manager.dart';
 
 class UserRepository {
   UserCategory userCategory = UserCategory(
       name: "", description: "", enable: true, collection: "", id: "");
-  Session session = Session();
+  late Session session;
   late UserData userData = UserData(category: userCategory);
   final String userCollectionID = Collections.USER;
   late Database database;
 
-  Future<Response?> signup({required UserModel user}) async {
+  Future<User?> signup({required UserModel user}) async {
     Account account = Account(AppwriteSettings.initAppwrite());
     try {
-      Response result = await account.create(
+      User result = await account.create(
           email: user.email.toString(),
           password: user.password.toString(),
           name: user.nickname.toString());
@@ -33,11 +31,11 @@ class UserRepository {
     }
   }
 
-  Future<Response?> signIn({required UserModel user}) async {
+  Future<Session?> signIn({required UserModel user}) async {
     Account account = Account(AppwriteSettings.initAppwrite());
 
     try {
-      Response response = await account.createSession(
+      Session response = await account.createSession(
           email: user.email.toString(), password: user.password.toString());
 
       return response;
@@ -49,10 +47,10 @@ class UserRepository {
     }
   }
 
-  Future<Response?> getTeam() async {
+  Future<MembershipList?> getTeam() async {
     Teams teams = Teams(AppwriteSettings.initAppwrite());
     try {
-      Response response = await teams.getMemberships(
+      MembershipList response = await teams.getMemberships(
         teamId: Collections.TEAMADMINID,
       );
       return response;
@@ -74,10 +72,10 @@ class UserRepository {
     }
   }
 
-  Future<Response?> getSessions() async {
+  Future<User?> getSessions() async {
     try {
       Account account = Account(AppwriteSettings.initAppwrite());
-      Response response = await account.get();
+      User response = await account.get();
       return response;
     } on AppwriteException catch (e) {
       print('Error getSessions: ${e.message}');
@@ -88,8 +86,8 @@ class UserRepository {
   Future<Session?> getUserSessionData() async {
     try {
       Account account = Account(AppwriteSettings.initAppwrite());
-      Response response = await account.get();
-      session = Session.fromJson(response.data);
+      SessionList response = await account.getSessions();
+      session = response.sessions[0];
       return session;
     } on AppwriteException catch (e) {
       print('Error getSessions: ${e.message}');
@@ -104,7 +102,7 @@ class UserRepository {
   Future<UserData> saveMyData({required Map<dynamic, dynamic> data}) async {
     try {
       database = Database(AppwriteSettings.initAppwrite());
-      Response response = await database.createDocument(
+      Document response = await database.createDocument(
           collectionId: userCollectionID,
           data: data,
           read: ["*"],
@@ -117,11 +115,11 @@ class UserRepository {
     }
   }
 
-  Future<Response?> updateMyData({required UserData data}) async {
+  Future<Document?> updateMyData({required UserData data}) async {
     try {
       printInfo(info: data.toJson().toString());
       database = Database(AppwriteSettings.initAppwrite());
-      Response response = await database.updateDocument(
+      Document response = await database.updateDocument(
           collectionId: userCollectionID,
           documentId: data.id!,
           data: data.toJson(),
@@ -137,11 +135,11 @@ class UserRepository {
   Future<UserData> chargeUserData({required String userID}) async {
     try {
       database = Database(AppwriteSettings.initAppwrite());
-      Response response = await database.listDocuments(
+      DocumentList response = await database.listDocuments(
           collectionId: userCollectionID,
           filters: ["userID=$userID"],
           limit: 1);
-      var data = response.data["documents"][0];
+      var data = response.documents[0].data;
       userData = UserData.fromJson(data);
       return userData;
     } catch (e) {
@@ -157,14 +155,14 @@ class UserRepository {
       required String passwordagain}) async {
     try {
       var account = Account(AppwriteSettings.initAppwrite());
-      Response response = await account.updateRecovery(
+      Token response = await account.updateRecovery(
         userId: userID,
         secret: secret,
         password: password,
         passwordAgain: passwordagain,
       );
 
-      return response.statusCode == 200 ? true : false;
+      return response.userId.length > 0 ? true : false;
     } on AppwriteException catch (e) {
       print('Error cange password ${e.message}');
       return false;

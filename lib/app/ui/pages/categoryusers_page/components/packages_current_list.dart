@@ -1,5 +1,6 @@
 import 'package:cotizaweb/app/controllers/categoryusers_controller.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
+import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +29,9 @@ class TableCategory extends GetView<CategoryUsersController> {
                 label: Text("Description"),
               ),
             DataColumn(
+              label: Text("Estado"),
+            ),
+            DataColumn(
               label: Text("Acciones"),
             ),
           ],
@@ -42,6 +46,24 @@ class TableCategory extends GetView<CategoryUsersController> {
       cells: [
         DataCell(Text(usercategory.name!)),
         if (!movil!) DataCell(Text(usercategory.description!)),
+        DataCell(
+          Center(
+            child: SwitchListTile(
+              contentPadding: EdgeInsets.only(left: 8),
+              activeColor: primaryColor,
+              value: usercategory.enable ?? false,
+              onChanged: (value) {
+                controller.changeEnable(usercategory);
+              },
+              title: Text(
+                usercategory.enable ?? false ? "Activo" : "Inactivo",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
         DataCell(
           Row(
             children: [

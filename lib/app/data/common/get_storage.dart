@@ -1,7 +1,7 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
-import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
 import 'package:cotizaweb/app/data/services/user.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,7 +37,7 @@ class MyGetStorage {
   }
 
   Future<UserData> listenUserData() async {
-    Session _mySession = Session();
+    Session? _mySession;
     UserData _userData = UserData(
         category: UserCategory(
             id: '', collection: '', enable: false, name: '', description: ''));
@@ -47,12 +47,11 @@ class MyGetStorage {
         Get.find<GlobalController>().user = _userData;
         return _userData;
       } else {
-        var resultSession = await UserRepository().getSessions();
-        _mySession = Session.fromJson(resultSession!.data);
-        Get.find<GlobalController>().session = _mySession;
+        _mySession = await UserRepository().getUserSessionData();
+        Get.find<GlobalController>().session = _mySession!;
         Get.find<GlobalController>().user = _userData;
         _userData =
-            await UserRepository().chargeUserData(userID: _mySession.userId!);
+            await UserRepository().chargeUserData(userID: _mySession.userId);
         return _userData;
       }
     } on AppwriteException catch (err) {

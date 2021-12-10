@@ -1,10 +1,9 @@
 import 'dart:ui';
-
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/common/get_storage.dart';
 import 'package:cotizaweb/app/data/models/MyFiles.dart';
 import 'package:cotizaweb/app/data/models/PackageModel.dart';
 import 'package:cotizaweb/app/data/models/categories.dart';
-import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
 import 'package:cotizaweb/app/data/services/dashboar_services.dart';
 import 'package:cotizaweb/app/data/services/user.dart';
@@ -19,7 +18,8 @@ class GlobalController extends GetxController {
           id: '', collection: '', enable: false, name: '', description: ''));
   UserRepository _userRepository = UserRepository();
   RxList<Packageclass> package = <Packageclass>[].obs;
-  Session session = Session();
+
+  late Session session;
   RxList<ClouddataInfo> datacardDashboard = [
     ClouddataInfo(
       title: "Usuarios",
@@ -49,7 +49,6 @@ class GlobalController extends GetxController {
   ].obs;
   @override
   onInit() async {
-    getData();
     super.onInit();
   }
 

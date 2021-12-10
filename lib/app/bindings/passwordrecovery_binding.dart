@@ -1,9 +1,7 @@
-
 import 'package:get/get.dart';
-import '../controllers/pasdwordrecovery_controller.dart';
+import '../controllers/passwordrecovery_controller.dart';
 
-
-class PasdwordRecoveryBinding implements Bindings {
+class PasswordRecoveryBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PasdwordRecoveryController>(() => PasdwordRecoveryController());

@@ -14,20 +14,21 @@ class LoginForm extends GetView<LoginController> {
       key: controller.formKey,
       autovalidateMode: AutovalidateMode.always,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           InputText(
             name: 'Correo electronico',
-            textInputType: TextInputType.name,
+            textInputType: TextInputType.emailAddress,
             validator: Validators.emailValidator,
-            prefixIcon: Icon(LineIcons.editAlt),
+            prefixIcon: Icon(LineIcons.userAlt),
             onChanged: (val) => controller.user.email = val,
           ),
           Obx(
             () => InputText(
               name: 'Contraseña',
-              textInputType: TextInputType.name,
+              textInputType: TextInputType.visiblePassword,
               validator: Validators.passwordValidator,
-              prefixIcon: Icon(LineIcons.editAlt),
+              prefixIcon: Icon(LineIcons.lock),
               onChanged: (val) => controller.user.password = val,
               obscureText: controller.viewPass.value,
               maxLines: 1,

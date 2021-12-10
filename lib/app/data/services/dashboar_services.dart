@@ -2,6 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/models/PackageModel.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
+import 'package:get/get.dart';
 
 class DashBoarServices {
   Future<int> getcountapackages() async {
@@ -9,9 +10,9 @@ class DashBoarServices {
     try {
       var res = await database.listDocuments(collectionId: Collections.PACKAGE);
 
-      return int.parse("${res.data["sum"]}");
+      return res.sum;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "DashBoarServices Error :${e.message}");
       return 0;
     }
   }
@@ -22,10 +23,11 @@ class DashBoarServices {
       var res =
           await database.listDocuments(collectionId: Collections.BUYPACKAGE);
 
-      return int.parse("${res.data["sum"]}");
+      return res.sum;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
-      return 0;
+      printError(info: "DashBoarServices Error :${e.message}");
+
+      throw e;
     }
   }
 
@@ -36,9 +38,9 @@ class DashBoarServices {
           collectionId: Collections.QUOTATIONS,
           filters: status == null ? [] : ["status=$status"]);
 
-      return int.parse("${res.data["sum"]}");
+      return res.sum;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "DashBoarServices Error :${e.message}");
       return 0;
     }
   }
@@ -46,12 +48,12 @@ class DashBoarServices {
   Future<int> getCounUsers() async {
     try {
       var database = Database(AppwriteSettings.initAppwrite());
-      Response res = await database
+      var res = await database
           .listDocuments(collectionId: Collections.USER, filters: ["enable=1"]);
-      return int.parse("${res.data['sum']}");
+      return res.sum;
     } on AppwriteException catch (e) {
-      print('Error get Users ' + e.message!);
-      return 0;
+      printError(info: "DashBoarServices Error :${e.message}");
+      throw e;
     }
   }
 
@@ -60,12 +62,12 @@ class DashBoarServices {
     try {
       var res = await database.listDocuments(
           collectionId: Collections.PACKAGE, limit: 10);
-      List<Packageclass> list = (res.data["documents"])
-          .map<Packageclass>((value) => Packageclass.fromMap(value))
+      List<Packageclass> list = (res.documents)
+          .map<Packageclass>((value) => Packageclass.fromMap(value.data))
           .toList();
       return list;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "DashBoarServices Error :${e.message}");
       throw "Error: ${e.message}";
     }
   }

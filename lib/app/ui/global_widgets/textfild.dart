@@ -1,6 +1,6 @@
 import 'package:cotizaweb/app/ui/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class InputText extends GetView {
   final String name;
@@ -16,27 +16,28 @@ class InputText extends GetView {
   final TextEditingController? controller;
   final void Function()? onEditingComplete;
   final String? Function(String?)? validator;
-  InputText(
-      {Key? key,
-      required this.name,
-      required this.prefixIcon,
-      required this.onChanged,
-      required this.textInputType,
-      this.obscureText,
-      this.validator,
-      this.suffixIcon,
-      this.autofillHints,
-      this.controller,
-      this.maxLines,
-      this.initialValue,
-      this.onEditingComplete,
-      this.minLines});
+  InputText({
+    Key? key,
+    required this.name,
+    required this.prefixIcon,
+    required this.onChanged,
+    required this.textInputType,
+    this.obscureText,
+    this.validator,
+    this.suffixIcon,
+    this.autofillHints,
+    this.controller,
+    this.maxLines,
+    this.initialValue,
+    this.onEditingComplete,
+    this.minLines,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: defaultPadding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           if (validator.toString().length == 0)
             BoxShadow(
@@ -66,26 +67,36 @@ class InputText extends GetView {
         onChanged: onChanged,
         cursorColor: Colors.deepOrange,
         decoration: InputDecoration(
-            filled: true,
-            fillColor: secondaryColor,
-            hintText: name,
-            suffixIcon: suffixIcon,
-            hintStyle: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Material(
-                elevation: 0,
-                borderRadius: BorderRadius.circular(30),
-                child: prefixIcon,
-              ),
+          filled: true,
+          fillColor: secondaryColor,
+          hintText: name,
+          suffixIcon: suffixIcon,
+          hintStyle: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Material(
+              elevation: 0,
+              borderRadius: BorderRadius.circular(30),
+              child: prefixIcon,
             ),
-            border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                const Radius.circular(15),
-              ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(15),
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+            borderSide: BorderSide(
+              color: Colors.white,
+              width: 1,
+            ),
+          ),
+          focusColor: Get.theme.colorScheme.primary,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 1.0),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 13),
+        ),
       ),
     );
   }

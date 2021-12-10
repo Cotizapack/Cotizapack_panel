@@ -14,6 +14,6 @@ class PackagesPage extends GetResponsiveView<PackagesController> {
 
   @override
   Widget desktop() {
-    return Desktoscreen(screen: screen);
+    return Desktopscreen(screen: screen);
   }
 }

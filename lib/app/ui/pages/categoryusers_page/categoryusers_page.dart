@@ -5,6 +5,8 @@ import 'desktop_mode.dart';
 import 'mobile_mode.dart';
 
 class CategoryUsersPage extends GetResponsiveView<CategoryUsersController> {
+  CategoryUsersPage()
+      : super(settings: ResponsiveScreenSettings(tabletChangePoint: 1024));
   Widget? phone() {
     return Movilcreen(screen: screen);
   }

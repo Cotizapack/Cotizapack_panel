@@ -1,10 +1,11 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/models/banner_model.dart';
 import 'package:cotizaweb/app/data/models/isolatemodel.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 import 'package:cotizaweb/app/data/provider/storage.dart';
-import 'package:cotizaweb/app/data/models/file.dart';
+import 'package:get/get.dart';
 
 class BannerServices {
   Database? database;
@@ -12,17 +13,18 @@ class BannerServices {
   Future<List<BannerModel>?> getallMyBanner() async {
     database = Database(AppwriteSettings.initAppwrite());
     try {
-      Response result = await database!.listDocuments(
+      DocumentList result = await database!.listDocuments(
         collectionId: Collections.BANNERS,
         filters: ["enable=1"],
       );
       var banners = <BannerModel>[];
-      for (var ban in result.data['documents']) {
-        banners.add(BannerModel.fromMap(ban));
+      for (var ban in result.documents) {
+        banners.add(BannerModel.fromMap(ban.data));
       }
       return banners;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "Banner Services Error: ${e.message}");
+
       throw e;
     }
   }
@@ -31,27 +33,28 @@ class BannerServices {
     database = Database(AppwriteSettings.initAppwrite());
     try {
       if (isolate.image!.length > 0) {
-        await MyStorage().deleteFile(fileId: isolate.banner!.image!);
-        var resultImage = await MyStorage()
+        await MyStorage()
+            .deleteFile(fileId: isolate.banner!.image!)
+            .then((value) => print("Delete file"));
+        File? file = await MyStorage()
             .postFile(image: isolate.image!, filename: isolate.filename!);
-        if (resultImage!.statusCode! == 500)
-          throw 'Error de Servidor, Espere un momento';
-        if (resultImage.statusCode! > 399) throw 'Error al subir el archivo';
-        var myFile = MyFile.fromJson(resultImage.data);
-        isolate.banner!.image = myFile.id;
+
+        if (file == null) throw 'Error al subir el archivo';
+        isolate.banner!.image = file.$id;
       }
 
-      Response result = await database!.updateDocument(
+      Document result = await database!.updateDocument(
         collectionId: Collections.BANNERS,
         documentId: isolate.banner!.id!,
         data: isolate.banner!.toMap(),
       );
-      if (result.statusCode == 200) {
+      if (result.data.isNotEmpty) {
         return getallMyBanner();
       }
       return null;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "Banner Services Error: ${e.message}");
+
       throw e;
     }
   }
@@ -59,24 +62,21 @@ class BannerServices {
   Future<List<BannerModel>?> saveMyBanner(Isolateparam isolate) async {
     database = Database(AppwriteSettings.initAppwrite());
     try {
-      var resultImage = await MyStorage()
+      var file = await MyStorage()
           .postFile(image: isolate.image!, filename: isolate.filename!);
-      if (resultImage!.statusCode! == 500)
-        throw 'Error de Servidor, Espere un momento';
-      if (resultImage.statusCode! > 399) throw 'Error al subir el archivo';
-      var myFile = MyFile.fromJson(resultImage.data);
-      isolate.banner!.image = myFile.id;
+      if (file == null) throw 'Error al subir el archivo';
+      isolate.banner!.image = file.$id;
       var result = await database!.createDocument(
           collectionId: Collections.BANNERS,
           data: isolate.banner!.toMap(),
           read: ['*'],
           write: ["team:${Collections.TEAMADMINID}"]);
 
-      if (result.statusCode == 201) return getallMyBanner();
+      if (result.data.isNotEmpty) return getallMyBanner();
 
       return null;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "Banner Services Error: ${e.message}");
       throw e;
     }
   }
@@ -99,7 +99,7 @@ class BannerServices {
 
       return null;
     } on AppwriteException catch (e) {
-      print('Error: ${e.message}');
+      printError(info: "Banner Services Error: ${e.message}");
       throw e;
     }
   }

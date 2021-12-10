@@ -43,10 +43,11 @@ Widget desktopMode(ResponsiveScreen screen) {
                   height: heightSize * 0.15,
                   width: widthSize * 0.15,
                 ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: LoginForm(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: LoginForm(),
+                  ),
                 ),
               ],
             ),

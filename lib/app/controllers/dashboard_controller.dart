@@ -6,6 +6,7 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
+    globalController.getData();
     super.onInit();
   }
 }

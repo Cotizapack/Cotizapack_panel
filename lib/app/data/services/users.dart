@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/data/common/Collections_api.dart';
 import 'package:cotizaweb/app/data/provider/appwrite.dart';
 
@@ -9,9 +10,9 @@ class UsersRepository {
   Future<int> getUsers() async {
     try {
       database = Database(AppwriteSettings.initAppwrite());
-      Response res = await database
+      DocumentList res = await database
           .listDocuments(collectionId: collectionID, filters: ["enable=1"]);
-      return int.parse("${res.data['sum']}");
+      return res.sum;
     } catch (e) {
       print('Error get Users');
       return 0;

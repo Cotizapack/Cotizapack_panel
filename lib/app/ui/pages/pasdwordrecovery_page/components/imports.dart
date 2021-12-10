@@ -1,0 +1,11 @@
+export 'package:cotizaweb/app/controllers/passwordrecovery_controller.dart';
+export 'package:cotizaweb/app/data/common/validators.dart';
+export 'package:cotizaweb/app/ui/global_widgets/button.dart';
+export 'package:cotizaweb/app/ui/global_widgets/textfild.dart';
+export 'package:cotizaweb/app/ui/utils/constants.dart';
+export 'package:flutter/material.dart';
+export 'package:get/get.dart';
+export 'package:line_icons/line_icons.dart';
+export './from_PassRecovery.dart';
+export '../movil_screen.dart';
+export '../desktop_mode.dart';

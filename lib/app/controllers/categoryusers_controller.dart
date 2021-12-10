@@ -107,6 +107,18 @@ class CategoryUsersController extends GetxController
     }
   }
 
+  /* ----------------------- change enable user category ---------------------- */
+  changeEnable(UserCategory data) {
+    try {
+      data.enable = !data.enable!;
+      userCategory = data;
+
+      updateUserCategory();
+    } catch (e) {
+      change(null, status: RxStatus.error("Error: $e"));
+    }
+  }
+
   /* ------------- borrar Package de la base de datos con la imagen ------------ */
   deletePackage(UserCategory userCategory) {
     try {
@@ -127,7 +139,7 @@ class CategoryUsersController extends GetxController
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             shape: RoundedRectangleBorder(
                 side: BorderSide(
-                    color: Get.theme.accentColor,
+                    color: Get.theme.colorScheme.primary,
                     width: 2,
                     style: BorderStyle.solid),
                 borderRadius: BorderRadius.circular(100)),
@@ -139,7 +151,7 @@ class CategoryUsersController extends GetxController
             padding: const EdgeInsets.all(8.0),
             child: Text(
               "Cancelar",
-              style: TextStyle(color: Get.theme.accentColor),
+              style: TextStyle(color: Get.theme.colorScheme.primary),
             ),
           ),
         ),
@@ -190,7 +202,8 @@ class CategoryUsersController extends GetxController
       );
       change(result, status: RxStatus.success());
       limpiar();
-    } catch (e) {} finally {
+    } catch (e) {
+    } finally {
       limpiar();
     }
   }

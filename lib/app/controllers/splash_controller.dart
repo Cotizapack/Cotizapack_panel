@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:cotizaweb/app/controllers/global_Controller.dart';
 import 'package:cotizaweb/app/data/common/get_storage.dart';
-import 'package:cotizaweb/app/data/models/session_model.dart';
 import 'package:cotizaweb/app/data/models/user_data.dart';
 import 'package:cotizaweb/app/data/services/user.dart';
 import 'package:cotizaweb/app/routes/app_pages.dart';
@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 
 class SplashController extends GetxController {
   UserRepository _userRepository = UserRepository();
-  Session _session = Session();
   // AccountRepository _accountRepository = AccountRepository();
 
   @override
@@ -22,12 +21,11 @@ class SplashController extends GetxController {
 
   void islogin() async {
     try {
-      var response = await _userRepository.getSessions();
+      var user = await _userRepository.getSessions();
       await _userRepository.getTeam();
-      if (response != null) {
-        if (response.statusCode == 200) {
-          _session = Session.fromJson(response.data);
-          bool checked = (await checkuserData(session: _session))!;
+      if (user != null) {
+        if (user.$id != '') {
+          bool checked = (await checkuserData(user: user));
           Timer(
             Duration(seconds: 1),
             () => Get.offNamed(
@@ -42,21 +40,20 @@ class SplashController extends GetxController {
     }
   }
 
-  Future<bool?> checkuserData({required Session session}) async {
+  Future<bool> checkuserData({required User user}) async {
     try {
       if (MyGetStorage().haveData(key: 'userData')) {
-        return true;
+        return Future.value(true);
       } else {
-        UserData value =
-            await _userRepository.chargeUserData(userID: session.userId!);
+        UserData value = await _userRepository.chargeUserData(userID: user.$id);
         Get.find<GlobalController>().user = value;
 
         MyGetStorage().saveData(key: 'userData', data: value.toJson());
-        return true;
+        return Future.value(true);
       }
     } catch (e) {
       print('Error: $e');
-      return false;
+      return Future.value(false);
     }
   }
 }

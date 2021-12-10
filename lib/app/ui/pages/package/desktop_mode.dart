@@ -8,10 +8,10 @@ import 'package:get/get_state_manager/src/simple/get_responsive.dart';
 import 'components/Package_form.dart';
 import 'components/Packages_current_list.dart';
 
-class Desktoscreen extends GetView<PackagesController> {
+class Desktopscreen extends GetView<PackagesController> {
   final ResponsiveScreen screen;
 
-  Desktoscreen({required this.screen});
+  Desktopscreen({required this.screen});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
