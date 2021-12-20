@@ -13,11 +13,11 @@ class Movilcreen extends GetView<PasdwordRecoveryController> {
         width: screen.width,
         height: screen.height,
         child: SafeArea(
-          child: Container(
-            child: Center(
-              child: Container(
-                width: screen.width * 0.8,
-                child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Center(
+                child: Container(
+                  width: screen.width * 0.8,
                   child: FromPassRecovery(),
                 ),
               ),

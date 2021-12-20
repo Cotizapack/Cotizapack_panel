@@ -11,7 +11,11 @@ class FromPassRecovery extends GetView<PasdwordRecoveryController> {
           Text(
             'Cambiar contraseña',
             style: TextStyle(
-                color: primaryColor, fontSize: 30, fontWeight: FontWeight.bold),
+              color: primaryColor,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 60,

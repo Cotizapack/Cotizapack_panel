@@ -7,7 +7,6 @@ import 'package:cotizaweb/app/data/provider/storage.dart';
 import 'package:cotizaweb/app/data/services/package_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
