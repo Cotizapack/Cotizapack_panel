@@ -1,4 +1,5 @@
 flutter build web --release
 
-
-Move-Item -Path .\build\web -Destination .\webBuild
+Rename-Item .\build\web -NewName docs 
+Remove-Item -Path .\docs -Force
+Move-Item -Path .\build\docs -Destination .\docs -Force
