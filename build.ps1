@@ -1,4 +1,4 @@
-flutter build web --release
+flutter build web --web-renderer html --release
 
 Rename-Item .\build\web -NewName docs 
 Remove-Item -Path .\docs -Force
